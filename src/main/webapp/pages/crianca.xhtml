@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Crianca</title>
+</h:head>
+<h:body>
+	<p:layoutUnit>
+		<ui:include src="/template/menu.xhtml"></ui:include>
+	</p:layoutUnit>
+	<!-- form - tag de formulario -->
+	<p:growl id="mensagem" />
+	<h:form id="formListagem">
+		<!-- Criação de painel e nome do cabeçalho -->
+		<p:panel header="Crianças - Listagem">
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+				paginator="true" rows="10" value="#{criancaBean.criancas}"
+				var="crianca">
+				<f:facet name="footer">
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+						actionListener="#{criancaBean.novo}" update=":formCadastro:painel" />
+				</f:facet>
+				<p:column headerText="Nome" sortBy="#{crianca.nome}"
+					filterBy="#{crianca.nome}">
+					<h:outputText value="#{crianca.nome}"></h:outputText>
+				</p:column>
+				<p:column headerText="Num.Sus" sortBy="#{crianca.numSUS}"
+					filterBy="#{crianca.numSUS}" width="16%">
+					<h:outputText value="#{crianca.numSUS}"></h:outputText>
+				</p:column>
+				<p:column headerText="Nome Mãe" sortBy="#{crianca.nomeMae}"
+					filterBy="#{crianca.numMae}">
+					<h:outputText value="#{crianca.nomeMae}"></h:outputText>
+				</p:column>
+				<p:column headerText="Data Nasc." width="10%">
+					<h:outputText value="#{crianca.dataNascimento}">
+						<f:convertDateTime pattern="dd/mm/yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Peso Nasc.">
+					<h:outputText value="#{crianca.pesoNascimento}"></h:outputText>
+				</p:column>
+				<p:column headerText="Endereço">
+					<h:outputText value="#{crianca.endereco}"></h:outputText>
+				</p:column>
+				<p:column headerText="Opções" width="16%">
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{criancaBean.excluir}"
+						update=":mensagem :formListagem:tabela">
+						<p:confirm header="Confirmação"
+							message="Deseja excluir a criança?" icon="ui-icon-alert" />
+						<f:attribute name="criancaSelecionada" value="#{crianca}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{criancaBean.editar}"
+						update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
+						<f:attribute name="criancaSelecionada" value="#{crianca}"></f:attribute>
+					</p:commandButton>
+					<p:commandButton icon="fa fa-plus"
+						actionListener="#{criancaBean.adicionaVisita}"
+						update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
+						<f:attribute name="criancaSelecionada" value="#{crianca}"></f:attribute>
+					</p:commandButton>
+					<p:commandButton icon="fa fa-file-text"></p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+
+	<!-- Criação da caixa de dialogo novo -->
+	<p:dialog header="Crianca - cadastro" widgetVar="dialogo"
+		draggable="false" resizable="false" modal="true" closable="false"
+		maximizable="false">
+		<h:form id="formCadastro">
+			<p:panelGrid columns="2" id="painel">
+				<p:outputLabel for="nome" value="Nome"></p:outputLabel>
+				<p:inputText id="nome" maxlength="50" size="30" required="true"
+					requiredMessage="Campo Obrigatório"
+					value="#{criancaBean.crianca.nome}"
+					disabled="#{criancaBean.addVisita}"></p:inputText>
+				<p:outputLabel for="numSus" value="Num.Sus"></p:outputLabel>
+				<p:inputMask mask="999 9999 9999 9999" id="numSus" maxlength="15"
+					size="30" required="true" requiredMessage="Campo Obrigatório"
+					value="#{criancaBean.crianca.numSUS}"
+					disabled="#{criancaBean.addVisita}"></p:inputMask>
+				<p:outputLabel for="nMae" value="Nome Mãe"></p:outputLabel>
+				<p:inputText id="nMae" maxlength="50" size="30" required="true"
+					requiredMessage="Campo Obrigatório"
+					value="#{criancaBean.crianca.nomeMae}"
+					disabled="#{criancaBean.addVisita}"></p:inputText>
+				<p:outputLabel for="popup" value="Data Nasc."></p:outputLabel>
+				<p:calendar id="popup" requiredMessage="Campo Obrigatório"
+					required="true" value="#{criancaBean.crianca.dataNascimento}"
+					disabled="#{criancaBean.addVisita}"></p:calendar>
+				<p:outputLabel for="pN" value="Peso Nasc"></p:outputLabel>
+				<p:inputNumber id="pN" minValue="0.001" maxValue="99.000"
+					symbolPosition="s" symbol="Kg" requiredMessage="Campo Obrigatório"
+					required="true" value="#{criancaBean.crianca.pesoNascimento}"
+					disabled="#{criancaBean.addVisita}"></p:inputNumber>
+				<p:outputLabel for="endereco" value="Endereço"></p:outputLabel>
+				<p:inputText id="endereco" maxlength="50" size="30" required="true"
+					requiredMessage="Campo Obrigatório"
+					value="#{criancaBean.crianca.endereco}"
+					disabled="#{criancaBean.addVisita}"></p:inputText>
+				<p:outputLabel for="dataV" value="Data Visita"></p:outputLabel>
+				<p:calendar id="dataV" requiredMessage="Campo Obrigatório"
+					disabled="#{criancaBean.editar}" required="true"
+					value="#{criancaBean.visita.dataVisita}"></p:calendar>
+				<p:outputLabel for="pesoAtual" value="Peso Atual"></p:outputLabel>
+				<p:inputNumber id="pesoAtual" minValue="0.001" maxValue="99.000" required="true"
+					symbol="Kg" requiredMessage="Campo Obrigatório" symbolPosition="s"
+					value="#{criancaBean.visita.peso}" disabled="#{criancaBean.editar}"></p:inputNumber>
+				<p:outputLabel for="At" value="Atendimento"></p:outputLabel>
+				<p:selectOneMenu id="At" disabled="#{criancaBean.editar}">
+					<f:selectItem itemValue="#{criancaBean.visita.atendimento}"
+						itemLabel="Sem necessidade"></f:selectItem>
+					<f:selectItem itemValue="#{criancaBean.visita.atendimento}"
+						itemLabel="Sim"></f:selectItem>
+					<f:selectItem itemValue="#{criancaBean.visita.atendimento}"
+						itemLabel="Não"></f:selectItem>
+				</p:selectOneMenu>
+				<p:outputLabel value="Lider"></p:outputLabel>
+				<p:selectOneMenu value="#{criancaBean.visita.lider}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="Selecione um lider"
+					disabled="#{criancaBean.editar}">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um Lider"></f:selectItem>
+					<f:selectItems value="#{criancaBean.lideres}" var="lider"
+						itemValue="#{lider}" itemLabel="#{lider.nome}"></f:selectItems>
+				</p:selectOneMenu>
+				<p:outputLabel value="Observação"></p:outputLabel>
+				<p:inputTextarea value="#{criancaBean.visita.observacao}" cols="28"
+					maxlength="250" autoResize="false" placeholder="Doencas e etc..."
+					disabled="#{criancaBean.editar}"></p:inputTextarea>
+			</p:panelGrid>
+			<p:panelGrid columns="2">
+				<p:commandButton value="Salvar"
+					actionListener="#{criancaBean.salvar}"
+					update=":mensagem :formCadastro:painel :formListagem:tabela" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>
