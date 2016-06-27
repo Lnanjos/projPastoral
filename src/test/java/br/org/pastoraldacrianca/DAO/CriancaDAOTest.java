@@ -19,7 +19,7 @@ public class CriancaDAOTest {
 		Crianca crianca = new Crianca();
 		CriancaDAO criancaDAO = new CriancaDAO();
 
-		crianca.setNome("Criança 1");
+		crianca.setNome("Criança 2");
 		crianca.setNomeMae("Mae crianca 1");
 		crianca.setPesoNascimento(new BigDecimal(2));
 		crianca.setDataNascimento(new Date("11/11/11"));
