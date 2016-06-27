@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Visitas</title>
+</h:head>
+<h:body>
+	<p:layoutUnit>
+		<ui:include src="/template/menu.xhtml"></ui:include>
+	</p:layoutUnit>
+	<!-- form - tag de formulario -->
+	<p:growl id="mensagem" />
+	<h:form id="formListagem">
+		<p:panel header="Visita - Listagem">
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+				paginator="true" rows="10" value="#{visitaBean.visitas}"
+				var="visita">
+				<p:column headerText="Num.Sus" filterBy="#{visita.crianca.numSUS}"
+					sortBy="#{visita.crianca.numSUS}" width="16%">
+					<h:outputText value="#{visita.crianca.numSUS}"></h:outputText>
+				</p:column>
+				<p:column headerText="Nome" filterBy="#{visita.crianca.nome}"
+					sortBy="#{visita.crianca.nome}">
+					<h:outputText value="#{visita.crianca.nome}"></h:outputText>
+				</p:column>
+				<p:column headerText="Data Visita" filterBy="#{visita.dataVisita}"
+					sortBy="#{visita.dataVisita}" width="12%">
+					<h:outputText value="#{visita.dataVisita}">
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Peso" sortBy="#{visita.peso}" width="8%">
+					<h:outputText value="#{visita.peso}kg"></h:outputText>
+				</p:column>
+				<p:column headerText="Atendimento" sortBy="#{visita.atendimento}">
+					<h:outputText value="#{visita.atendimento}"></h:outputText>
+				</p:column>
+				<p:column headerText="Lider" sortBy="#{visita.lider.nome}"
+					filterBy="#{visita.lider.nome}">
+					<h:outputText value="#{visita.lider.nome}"></h:outputText>
+				</p:column>
+				<p:column headerText="Observação" sortBy="#{visita.observacao}">
+					<h:outputText value="#{visita.observacao}"></h:outputText>
+				</p:column>
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{visitaBean.editar}"
+						oncomplete="PF('dialogo').show();"
+						update=":mensagem  :formCadastro:painel">
+						<f:attribute name="visitaSelecionada" value="#{visita}"></f:attribute>
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{visitaBean.excluir}"
+						update=":mensagem :formListagem:tabela">
+						<p:confirm header="Confirmação" message="Deseja excluir a cidade"
+							icon="ui-icon-alert" />
+						<f:attribute name="visitaSelecionada" value="#{visita}" />
+					</p:commandButton>
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+						actionListener="#{visitaBean.novo}" />
+				</f:facet>
+			</p:dataTable>
+			<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</p:panel>
+	</h:form>
+	<!-- Criação da caixa de dialogo novo -->
+	<p:dialog header="Visita - cadastro" widgetVar="dialogo"
+		draggable="false" resizable="false" modal="true" closable="false"
+		maximizable="false">
+		<h:form id="formCadastro">
+			<p:panelGrid columns="2" id="painel">
+				<h:outputLabel for="selC" value="Selecione a criança"></h:outputLabel>
+				<p:selectOneMenu id="selC" value="#{visitaBean.crianca}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="Selecione uma criança" filter="true">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione uma crianca"></f:selectItem>
+					<f:selectItems value="#{visitaBean.criancas}" var="crianca"
+						itemValue="#{crianca}" itemLabel="#{crianca.nome}"></f:selectItems>
+					<f:ajax event="change" render="@form"></f:ajax>
+				</p:selectOneMenu>
+				<p:outputLabel for="selNum" value="Num.Sus"></p:outputLabel>
+				<p:selectOneMenu id="selNum" value="#{visitaBean.crianca}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="Selecione uma criança" filter="true">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione uma Criança pelo número do SUS"></f:selectItem>
+					<f:selectItems value="#{visitaBean.criancas}" var="crianca"
+						itemValue="#{crianca}" itemLabel="#{crianca.numSUS}"></f:selectItems>
+					<f:ajax event="change" render="@form"></f:ajax>
+				</p:selectOneMenu>
+				<p:outputLabel for="dataV" value="Data Visita"></p:outputLabel>
+				<p:calendar id="dataV" requiredMessage="Campo Obrigatório"
+					required="true" value="#{visitaBean.visita.dataVisita}"></p:calendar>
+				<p:outputLabel for="pesoAtual" value="Peso Atual"></p:outputLabel>
+				<p:inputNumber id="pesoAtual" minValue="0.001" maxValue="99.000"
+					required="true" symbol="Kg" requiredMessage="Campo Obrigatório"
+					symbolPosition="s" value="#{visitaBean.visita.peso}"></p:inputNumber>
+				<p:outputLabel for="At" value="Atendimento"></p:outputLabel>
+				<p:selectOneMenu id="At" required="true"
+					requiredMessage="Selecione um atendimento"
+					value="#{visitaBean.visita.atendimento}">
+					<f:selectItem itemValue="Sem necessidade"
+						itemLabel="Sem necessidade"></f:selectItem>
+					<f:selectItem itemValue="Sim" itemLabel="Sim"></f:selectItem>
+					<f:selectItem itemValue="Não" itemLabel="Não"></f:selectItem>
+				</p:selectOneMenu>
+				<p:outputLabel value="Lider"></p:outputLabel>
+				<p:selectOneMenu value="#{visitaBean.lider}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="Selecione um lider">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um Lider"></f:selectItem>
+					<f:selectItems value="#{visitaBean.lideres}" var="lider"
+						itemValue="#{lider}" itemLabel="#{lider.nome}"></f:selectItems>
+				</p:selectOneMenu>
+				<p:outputLabel value="Observação"></p:outputLabel>
+				<p:inputTextarea value="#{visitaBean.visita.observacao}" cols="28"
+					maxlength="250" autoResize="false" placeholder="Doencas e etc..."></p:inputTextarea>
+			</p:panelGrid>
+			<p:panelGrid columns="2">
+				<p:commandButton value="Salvar"
+					actionListener="#{visitaBean.salvar}"
+					update=":mensagem :formCadastro:painel :formListagem:tabela" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>
