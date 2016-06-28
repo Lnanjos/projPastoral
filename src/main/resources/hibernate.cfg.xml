@@ -32,13 +32,15 @@
 		 
 		<!-- Cria as tabelas do banco de dados -->
 		
-		<property name="hbm2ddl.auto">validate</property>
+		<property name="hbm2ddl.auto">create</property>
 		
 		<!-- Mapeamento das entidades -->
 		 
 		<mapping class="br.org.pastoraldacrianca.domain.Crianca" />
 		<mapping class="br.org.pastoraldacrianca.domain.Lider" />
-		<mapping class="br.org.pastoraldacrianca.domain.Visita" />		
+		<mapping class="br.org.pastoraldacrianca.domain.Visita" />
+		<mapping class="br.org.pastoraldacrianca.domain.CadastroDeMortes" />
+				
 	</session-factory>
 
 </hibernate-configuration>

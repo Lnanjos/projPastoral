@@ -13,13 +13,12 @@ public class CriancaDAOTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	@Ignore
 	public void salvar() {
 
 		Crianca crianca = new Crianca();
 		CriancaDAO criancaDAO = new CriancaDAO();
 
-		crianca.setNome("Criança 2");
+		crianca.setNome("Criança 1");
 		crianca.setNomeMae("Mae crianca 1");
 		crianca.setPesoNascimento(new BigDecimal(2));
 		crianca.setDataNascimento(new Date("11/11/11"));
