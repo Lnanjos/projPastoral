@@ -58,7 +58,7 @@ public class CadastroDeMortesBean implements Serializable {
 			crianca = new Crianca();
 			
 			CadastroDeMortesDAO cadastroDAO = new CadastroDeMortesDAO();
-			mortes = cadastroDAO.lista();
+			setMortes(cadastroDAO.lista());
 			
 			CriancaDAO criancaDAO = new CriancaDAO();
 			criancas = criancaDAO.lista();
@@ -77,7 +77,7 @@ public class CadastroDeMortesBean implements Serializable {
 			CriancaDAO criancaDAO = new CriancaDAO();
 			criancas = criancaDAO.lista();
 			
-			mortes = cadastroDAO.lista();			
+			setMortes(cadastroDAO.lista());			
 			
 			crianca = new Crianca();
 			morte = new CadastroDeMortes();
@@ -96,7 +96,7 @@ public class CadastroDeMortesBean implements Serializable {
 			criancas = criancaDAO.lista();
 			
 			CadastroDeMortesDAO cadastroDAO = new CadastroDeMortesDAO();
-			mortes = cadastroDAO.lista();
+			setMortes(cadastroDAO.lista());
 			
 		} catch (Exception e) {
 			Messages.addGlobalError("Ocorreu um erro ao listar as mortes");
@@ -118,7 +118,7 @@ public class CadastroDeMortesBean implements Serializable {
 			criancas = criancaDAO.lista();
 			
 			CadastroDeMortesDAO cadastroDAO = new CadastroDeMortesDAO();
-			mortes = cadastroDAO.lista();
+			setMortes(cadastroDAO.lista());
 			
 			cadastroDAO.excluir(morte);
 
@@ -127,6 +127,14 @@ public class CadastroDeMortesBean implements Serializable {
 			e.printStackTrace();
 			Messages.addGlobalError("Ocorreu um erro ao remover a morte");
 		}
+	}
+
+	public List<CadastroDeMortes> getMortes() {
+		return mortes;
+	}
+
+	public void setMortes(List<CadastroDeMortes> mortes) {
+		this.mortes = mortes;
 	}
 	
 	

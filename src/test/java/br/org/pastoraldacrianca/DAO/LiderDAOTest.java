@@ -14,6 +14,8 @@ public class LiderDAOTest {
 		Lider lider = new Lider();
 
 		lider.setNome("Lider 1");
+
+		lider.setNome("Lider 2");
 		lider.setEmail("lider@1.com");
 		lider.setSenha("lider1");
 		lider.setEndereco("lider1endereco");

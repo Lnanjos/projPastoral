@@ -41,6 +41,9 @@
 		<mapping class="br.org.pastoraldacrianca.domain.Visita" />
 		<mapping class="br.org.pastoraldacrianca.domain.CadastroDeMortes" />
 				
+
+	
+
 	</session-factory>
 
 </hibernate-configuration>
