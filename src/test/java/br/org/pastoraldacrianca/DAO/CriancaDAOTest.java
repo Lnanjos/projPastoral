@@ -13,7 +13,7 @@ public class CriancaDAOTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	@Ignore
+
 	public void salvar() {
 
 		Crianca crianca = new Crianca();
