@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Não Atendimento</title>
+</h:head>
+<h:body>
+	<p:layoutUnit>
+		<ui:include src="/template/menu.xhtml"></ui:include>
+	</p:layoutUnit>
+
+	<!-- form - tag de formulario -->
+	<p:growl id="mensagem" />
+	<h:form id="formListagem">
+		<p:panel header="Nao Atendimento - Listagem">
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+				paginator="true" rows="10"
+				value="#{naoAtendimentoBean.naoAtendimento}" var="naoAtendimento">
+
+				<p:column headerText="Nome"
+					filterBy="#{naoAtendimento.crianca.nome}"
+					sortBy="#{naoAtendimento.crianca.nome}">
+					<h:outputText value="#{naoAtendimento.crianca.nome}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Data"
+					filterBy="#{naoAtendimento.dataNaoAtendimento}"
+					sortBy="#{naoAtendimento.dataNaoAtendimento}" width="12%">
+					<h:outputText value="#{naoAtendimento.dataNaoAtendimento}">
+						<f:convertDateTime locale="pt_BR"></f:convertDateTime>
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Lider" sortBy="#{naoAtendimento.lider.nome}"
+					filterBy="#{naoAtendimento.lider.nome}">
+					<h:outputText value="#{naoAtendimento.lider.nome}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Responsável"
+					sortBy="#{naoAtendimento.respAt}">
+					<h:outputText value="#{naoAtendimento.respAt}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{naoAtendimentoBean.editar}"
+						oncomplete="PF('dialogo').show();"
+						update=":mensagem  :formCadastro:painel">
+						<f:attribute name="naoAtendimentoSelecionado"
+							value="#{naoAtendimento}"></f:attribute>
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{naoAtendimentoBean.excluir}"
+						update=":mensagem :formListagem:tabela">
+						<p:confirm header="Confirmação"
+							message="Deseja excluir o registro de Não Atendimento"
+							icon="ui-icon-alert" />
+						<f:attribute name="naoAtendimentoSelecionada"
+							value="#{naoAtendimento}" />
+					</p:commandButton>
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+						actionListener="#{naoAtendimentoBean.novo}" />
+				</f:facet>
+			</p:dataTable>
+			<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</p:panel>
+	</h:form>
+	<!-- Criação da caixa de dialogo novo -->
+	<p:dialog header="Não Atendimento - cadastro" widgetVar="dialogo"
+		draggable="false" resizable="false" modal="true" closable="false"
+		maximizable="false">
+		<h:form id="formCadastro">
+			<p:panelGrid columns="2" id="painel">
+				<h:outputLabel for="selC" value="Selecione a criança"></h:outputLabel>
+
+				<p:selectOneMenu id="selC" value="#{naoAtendimentoBean.crianca}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="Selecione uma criança" filter="true">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione uma crianca"></f:selectItem>
+					<f:selectItems value="#{naoAtendimentoBean.criancas}" var="crianca"
+						itemValue="#{crianca}" itemLabel="#{crianca.nome}"></f:selectItems>
+					<f:ajax event="change" render="selNum"></f:ajax>
+					
+				</p:selectOneMenu>
+				<h:outputLabel for="selNum" value="Selecione a criança pelo número do SUS"></h:outputLabel>
+				<p:selectOneMenu id="selNum" value="#{naoAtendimentoBean.crianca}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="Selecione uma criança" filter="true">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione uma crianca"></f:selectItem>
+					<f:selectItems value="#{naoAtendimentoBean.criancas}" var="crianca"
+						itemValue="#{crianca}" itemLabel="#{crianca.numSus}"></f:selectItems>
+					<f:ajax event="change" render="selC"></f:ajax>
+					
+				</p:selectOneMenu>
+				<p:outputLabel for="dataNA" value="Data de Não Atendimento"></p:outputLabel>
+				<p:calendar id="dataNA" requiredMessage="Campo Obrigatório"
+					required="true"
+					value="#{naoAtendimentoBean.naoAtendimento.dataNaoAtendimento}"></p:calendar>
+
+				<p:outputLabel value="Lider"></p:outputLabel>
+				<p:selectOneMenu value="#{naoAtendimentoBean.lider}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="Selecione um lider">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um Lider"></f:selectItem>
+					<f:selectItems value="#{naoAtendimentoBean.lideres}" var="lider"
+						itemValue="#{lider}" itemLabel="#{lider.nome}"></f:selectItems>
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Para onde foi encaminhado?"></p:outputLabel>
+				<p:inputText
+					value="#{naoAtendimentoBean.naoAtendimento.encaminhado}" cols="28"
+					maxlength="250" autoResize="false">
+				</p:inputText>
+
+				<p:outputLabel value="Responsável pelo atendimento no SUS"></p:outputLabel>
+				<p:inputText value="#{naoAtendimentoBean.naoAtendimento.respAt}"
+					cols="30" maxlength="250" autoResize="false">
+				</p:inputText>
+
+				<p:outputLabel value="Motivo do Não Atendimento no SUS"></p:outputLabel>
+				<p:inputText
+					value="#{naoAtendimentoBean.naoAtendimento.motivoNaoAT}" cols="30"
+					maxlength="250" autoResize="false">
+				</p:inputText>
+
+				<p:outputLabel value="Sintomas apresentados"></p:outputLabel>
+				<p:inputText
+					value="#{naoAtendimentoBean.naoAtendimento.sintoma}" cols="30"
+					maxlength="250" autoResize="false"
+					placeholder="Febre, dor, gripe, etc...">
+				</p:inputText>
+			</p:panelGrid>
+			<p:panelGrid columns="2">
+				<p:commandButton value="Salvar"
+					actionListener="#{naoAtendimentoBean.salvar}"
+					update=":mensagem :formCadastro:painel :formListagem:tabela" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+
+</h:body>
+</html>

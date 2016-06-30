@@ -1,12 +1,8 @@
 package br.org.pastoraldacrianca.DAO;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
-
 import org.junit.Ignore;
 import org.junit.Test;
-
 import br.org.pastoraldacrianca.domain.CadastroDeMortes;
 import br.org.pastoraldacrianca.domain.Crianca;
 

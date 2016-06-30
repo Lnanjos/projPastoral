@@ -102,16 +102,16 @@
 				<p:outputLabel for="causaDaMorte" value="causa Da Morte"/>
 				<p:inputNumber id="causaDaMorte" minValue="0.001" maxValue="99.000"
 					symbolPosition="s" symbol="Kg" requiredMessage="Campo Obrigatório"
-					required="true" value="#{cadastroDeMortesBean.causaDaMorte}"
+					required="true" value="#{cadastroDeMortesBean.morte.causaDaMorte}"
 					/>
 				<p:outputLabel for="descricao" value="Histórico do que aconteceu com a criança"/>
 				<p:inputText id="descricao" maxlength="250" size="50" required="true"
 					requiredMessage="Campo Obrigatório"
-					value="#{cadastroDeMortesBean.descricao}"
+					value="#{cadastroDeMortesBean.morte.descricao}"
 					/>
 					
 				<p:outputLabel for="assistenciaMedica" value="Teve Assistencia Medica" ></p:outputLabel>
-				<p:selectOneRadio id="assistenciaMedica" value="#{cadastroDeMortesBean.assistenciaMedica}">
+				<p:selectOneRadio id="assistenciaMedica" value="#{cadastroDeMortesBean.morte.assistenciaMedica}">
 					<f:selectItem itemLabel="Sim" itemValue="true" />
 					<f:selectItem itemLabel="Não" itemValue="false" />
 				</p:selectOneRadio>
