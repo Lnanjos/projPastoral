@@ -129,7 +129,7 @@ public class CriancaBean implements Serializable{
 	public void listar() {
 		try {
 			CriancaDAO criancaDAO = new CriancaDAO();
-			criancas = criancaDAO.lista();
+			criancas = criancaDAO.listaOrCriancasViva("nome");
 		} catch (Exception e) {
 			Messages.addGlobalError("Ocorreu um erro ao listar os estados");
 			e.printStackTrace();

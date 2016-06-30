@@ -24,8 +24,19 @@ public class Crianca extends GenericDomain{
 	@Column(nullable = false)
 	private Date dataNascimento;
 	
+	@Column(nullable = false)
+	private boolean vivo;
+
 	@Column(nullable = false, precision = 5, scale = 3)
 	private BigDecimal pesoNascimento;
+	
+	public boolean isVivo() {
+		return vivo;
+	}
+
+	public void setVivo(boolean vivo) {
+		this.vivo = vivo;
+	}
 	
 	public String getEndereco() {
 		return endereco;

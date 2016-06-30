@@ -21,7 +21,10 @@
 				paginator="true" value="#{liderBean.lideres}" var="lider">
 				<f:facet name="footer">
 					<p:commandButton value="Novo" actionListener="#{liderBean.novo}"
-						update=":formCadastro:painel" oncomplete="PF('dialogo').show();" />
+						update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"></f:actionListener>
+					</p:commandButton>
 				</f:facet>
 				<p:column headerText="Nome" sortBy="#{lider.nome}"
 					filterBy="#{lider.nome}">
@@ -40,6 +43,8 @@
 						<p:confirm header="Confirmação" message="Deseja excluir o lider?"
 							icon="ui-icon-alert" />
 						<f:attribute name="liderSelecionado" value="#{lider}" />
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"></f:actionListener>
 					</p:commandButton>
 					<p:commandButton icon="ui-icon-pencil"
 						actionListener="#{liderBean.editar}" update=":formCadastro:painel"
@@ -69,8 +74,8 @@
 					maxlength="50" size="30" required="true"
 					requiredMessage="Campo Obrigatório"></p:inputText>
 				<p:outputLabel for="email" value="Email"></p:outputLabel>
-				<p:inputText id="email" value="#{liderBean.lider.email}" maxlength="50"
-					size="30" required="true"
+				<p:inputText id="email" value="#{liderBean.lider.email}"
+					maxlength="50" size="30" required="true"
 					requiredMessage="Campo Obrigatório"></p:inputText>
 				<h:outputLabel for="pwd1" value="Senha: " />
 				<p:password validatorMessage="Erro de confirmação de senha"
@@ -82,8 +87,8 @@
 					id="pwd2" value="#{liderBean.lider.senha}"
 					label="Confirmação da senha" />
 				<p:outputLabel for="endereco" value="Endereço"></p:outputLabel>
-				<p:inputText id="endereco" value="#{liderBean.lider.endereco}" maxlength="50"
-					size="30" required="true"
+				<p:inputText id="endereco" value="#{liderBean.lider.endereco}"
+					maxlength="50" size="30" required="true"
 					requiredMessage="Campo Obrigatório"></p:inputText>
 			</p:panelGrid>
 			<p:panelGrid columns="2">

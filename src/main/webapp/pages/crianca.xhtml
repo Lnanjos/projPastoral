@@ -23,7 +23,10 @@
 				var="crianca">
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{criancaBean.novo}" update=":formCadastro:painel" />
+						actionListener="#{criancaBean.novo}" update=":formCadastro:painel">
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"></f:actionListener>
+					</p:commandButton>
 				</f:facet>
 				<p:column headerText="Nome" sortBy="#{crianca.nome}"
 					filterBy="#{crianca.nome}">
@@ -59,7 +62,10 @@
 					<p:commandButton icon="ui-icon-pencil"
 						actionListener="#{criancaBean.editar}"
 						update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
-						<f:attribute name="criancaSelecionada" value="#{crianca}"></f:attribute>
+						<f:attribute name="criancaSelecionada" value="#{crianca}">
+						</f:attribute>
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"></f:actionListener>
 					</p:commandButton>
 					<p:commandButton icon="fa fa-plus"
 						actionListener="#{criancaBean.adicionaVisita}"
@@ -112,9 +118,10 @@
 					disabled="#{criancaBean.editar}" required="true"
 					value="#{criancaBean.visita.dataVisita}"></p:calendar>
 				<p:outputLabel for="pesoAtual" value="Peso Atual"></p:outputLabel>
-				<p:inputNumber id="pesoAtual" minValue="0.001" maxValue="99.000" required="true"
-					symbol="Kg" requiredMessage="Campo Obrigatório" symbolPosition="s"
-					value="#{criancaBean.visita.peso}" disabled="#{criancaBean.editar}"></p:inputNumber>
+				<p:inputNumber id="pesoAtual" minValue="0.001" maxValue="99.000"
+					required="true" symbol="Kg" requiredMessage="Campo Obrigatório"
+					symbolPosition="s" value="#{criancaBean.visita.peso}"
+					disabled="#{criancaBean.editar}"></p:inputNumber>
 				<p:outputLabel for="At" value="Atendimento"></p:outputLabel>
 				<p:selectOneMenu id="At" disabled="#{criancaBean.editar}">
 					<f:selectItem itemValue="#{criancaBean.visita.atendimento}"
@@ -142,7 +149,8 @@
 			<p:panelGrid columns="2">
 				<p:commandButton value="Salvar"
 					actionListener="#{criancaBean.salvar}"
-					update=":mensagem :formCadastro:painel :formListagem:tabela" />
+					update=":mensagem :formCadastro:painel :formListagem:tabela">
+				</p:commandButton>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</p:panelGrid>
 		</h:form>
