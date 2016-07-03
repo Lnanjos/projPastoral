@@ -5,68 +5,77 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Cadastro de Mortes</title>
-</head>
-<body>
+	<h:outputScript library="js" name="scripts.js" />
+</h:head>
+<h:body>
 
-<p:layoutUnit>
+	<p:layoutUnit>
 		<ui:include src="/template/menu.xhtml"></ui:include>
 	</p:layoutUnit>
 	<!-- form - tag de formulario -->
 	<p:growl id="mensagem" />
 	<h:form id="formListagem">
 		<!-- Criação de painel e nome do cabeçalho -->
-		<p:panel header="Crianças - Listagem">
+		<p:panel header="Cadastro de mortes - Listagem">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
-				paginator="true" rows="10" value="#{criancaBean.criancas}"
-				var="cadastroDeMortes">
+				paginator="true" rows="10" value="#{cadastroDeMortesBean.mortes}"
+				var="cadastroDeMorte">
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{cadastroDeMortesBean.novo}" update=":formCadastro:painel" />
+						actionListener="#{cadastroDeMortesBean.novo}"
+						update=":formCadastro:painel">
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"></f:actionListener>
+					</p:commandButton>
 				</f:facet>
-				<p:column headerText="Nome" sortBy="#{cadastroDeMortes.crianca.nome}"
-					filterBy="#{cadastroDeMortes.crianca.nome}">
-					<h:outputText value="#{cadastroDeMortes.crianca.nome}"></h:outputText>
+				<p:column headerText="Nome"
+					sortBy="#{cadastroDeMorte.crianca.nome}"
+					filterBy="#{cadastroDeMorte.crianca.nome}">
+					<h:outputText value="#{cadastroDeMorte.crianca.nome}"></h:outputText>
 				</p:column>
-				<p:column headerText="cadastroDeMortes.crianca.Num.Sus" sortBy="#{cadastroDeMortes.crianca.numSUS}"
-					filterBy="#{cadastroDeMortes.crianca.numSUS}" width="16%">
-					<h:outputText value="#{cadastroDeMortes.crianca.numSUS}"></h:outputText>
+				<p:column headerText="Num.Sus"
+					sortBy="#{cadastroDeMorte.crianca.numSUS}"
+					filterBy="#{cadastroDeMorte.crianca.numSUS}" width="16%">
+					<h:outputText value="#{cadastroDeMorte.crianca.numSUS}"></h:outputText>
 				</p:column>
-				<p:column headerText="Nome Mãe" sortBy="#{cadastroDeMortes.crianca.nomeMae}"
-					filterBy="#{cadastroDeMortes.crianca.numMae}">
-					<h:outputText value="#{cadastroDeMortes.crianca.nomeMae}"></h:outputText>
+				<p:column headerText="Nome Mãe"
+					sortBy="#{cadastroDeMorte.crianca.nomeMae}"
+					filterBy="#{cadastroDeMorte.crianca.nomeMae}">
+					<h:outputText value="#{cadastroDeMorte.crianca.nomeMae}"></h:outputText>
 				</p:column>
 				<p:column headerText="Data Nasc." width="10%">
-					<h:outputText value="#{cadastroDeMortes.crianca.dataNascimento}">
-						<f:convertDateTime pattern="dd/mm/yyyy" />
+					<h:outputText
+						value="#{cadastroDeMorte.crianca.dataNascimento}">
+						<f:convertDateTime locale="pt_BR" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Data Óbito." width="10%">
+					<h:outputText value="#{cadastroDeMorte.dataMorte}">
+						<f:convertDateTime locale="pt_BR" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Causa da Morte.">
-					<h:outputText value="#{cadastroDeMortes.causaDaMorte}"></h:outputText>
+					<h:outputText value="#{cadastroDeMorte.causaDaMorte}"></h:outputText>
 				</p:column>
-				<p:column headerText="Histórico do que aconteceu com a Criança">
-					<h:outputText value="#{cadastroDeMortes.descricao}"></h:outputText>
-				</p:column>
-				<p:column headerText="Histórico do que aconteceu com a Criança">
-					<p:selectBooleanCheckbox value="#{cadastroDeMortes.assistenciaMedica}" disabled="true"/>
-				</p:column>
-				
+
 				<p:column headerText="Opções" width="16%">
 					<p:commandButton icon="ui-icon-trash"
 						actionListener="#{cadastroDeMortesBean.excluir}"
 						update=":mensagem :formListagem:tabela">
 						<p:confirm header="Confirmação"
-							message="Deseja excluir o cadastro de Morte?" icon="ui-icon-alert" />
-						<f:attribute name="cadastroSelecionado" value="#{cadastro}" />
+							message="Deseja excluir o cadastro de Morte?"
+							icon="ui-icon-alert" />
+						<f:attribute name="cadastroSelecionado" value="#{cadastroDeMorte}" />
 					</p:commandButton>
 					<p:commandButton icon="ui-icon-pencil"
 						actionListener="#{cadastroDeMortesBean.editar}"
 						update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
-						<f:attribute name="cadastroSelecionado" value="#{cadastro}"></f:attribute>
+						<f:attribute name="cadastroSelecionado" value="#{cadastroDeMorte}"></f:attribute>
 					</p:commandButton>
-					
+
 				</p:column>
 			</p:dataTable>
 		</p:panel>
@@ -78,55 +87,56 @@
 		maximizable="false">
 		<h:form id="formCadastro">
 			<p:panelGrid columns="2" id="painel">
-				<p:outputLabel for="nome" value="Nome"/>
-				<p:inputText id="nome" maxlength="50" size="30" required="true"
-					requiredMessage="Campo Obrigatório"
-					value="#{cadastroDeMortesBean.crianca.nome}"
-					/>
-				<p:outputLabel for="numSus" value="Num.Sus"/>
-				<p:inputMask mask="999 9999 9999 9999" id="numSus" maxlength="15"
-					size="30" required="true" requiredMessage="Campo Obrigatório"
-					value="#{cadastroDeMortesBean.crianca.numSUS}"
-					/>
-				<p:outputLabel for="nMae" value="Nome Mãe"/>
-				<p:inputText id="nMae" maxlength="50" size="30" required="true"
-					requiredMessage="Campo Obrigatório"
-					value="#{cadastroDeMortesBean.crianca.nomeMae}"
-					/>
-					
-				<p:outputLabel for="popup" value="Data Nasc."/>
-				
+				<h:outputLabel for="selC" value="Selecione a criança"></h:outputLabel>
+				<p:selectOneMenu id="selC" value="#{cadastroDeMortesBean.crianca}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="Selecione uma criança" filter="true">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione uma crianca"></f:selectItem>
+					<f:selectItems value="#{cadastroDeMortesBean.criancas}" var="crianca"
+						itemValue="#{crianca}" itemLabel="#{crianca.nome}"></f:selectItems>
+					<f:ajax event="change" render="selNum"></f:ajax>
+				</p:selectOneMenu>
+				<p:outputLabel for="selNum" value="Num.Sus"></p:outputLabel>
+				<p:selectOneMenu id="selNum" value="#{cadastroDeMortesBean.crianca}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="Selecione uma criança" filter="true">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione uma Criança pelo número do SUS"></f:selectItem>
+					<f:selectItems value="#{cadastroDeMortesBean.criancas}" var="crianca"
+						itemValue="#{crianca}" itemLabel="#{crianca.numSUS}"></f:selectItems>
+					<f:ajax event="change" render="selC"></f:ajax>
+				</p:selectOneMenu>
+				<p:outputLabel for="popup" value="Data de óbito" />
 				<p:calendar id="popup" requiredMessage="Campo Obrigatório"
-					required="true" value="#{cadastroDeMortesBean.crianca.dataNascimento}"
-					/>
-				<p:outputLabel for="causaDaMorte" value="causa Da Morte"/>
-				<p:inputNumber id="causaDaMorte" minValue="0.001" maxValue="99.000"
-					symbolPosition="s" symbol="Kg" requiredMessage="Campo Obrigatório"
-					required="true" value="#{cadastroDeMortesBean.morte.causaDaMorte}"
-					/>
-				<p:outputLabel for="descricao" value="Histórico do que aconteceu com a criança"/>
-				<p:inputText id="descricao" maxlength="250" size="50" required="true"
-					requiredMessage="Campo Obrigatório"
-					value="#{cadastroDeMortesBean.morte.descricao}"
-					/>
-					
-				<p:outputLabel for="assistenciaMedica" value="Teve Assistencia Medica" ></p:outputLabel>
-				<p:selectOneRadio id="assistenciaMedica" value="#{cadastroDeMortesBean.morte.assistenciaMedica}">
+					required="true" value="#{cadastroDeMortesBean.morte.dataMorte}" />
+				<p:outputLabel for="causaDaMorte" value="Causa Da Morte" />
+				<p:inputText id="causaDaMorte" maxlength="250" size="50"
+					required="true" requiredMessage="Campo Obrigatório"
+					value="#{cadastroDeMortesBean.morte.causaDaMorte}" />
+				<p:outputLabel for="descricao"
+					value="Histórico do que aconteceu com a criança" />
+				<p:inputText id="descricao" maxlength="250" size="50"
+					required="true" requiredMessage="Campo Obrigatório"
+					value="#{cadastroDeMortesBean.morte.descricao}" />
+				<p:outputLabel for="assistenciaMedica"
+					value="Teve Assistencia Medica"></p:outputLabel>
+				<p:selectOneRadio id="assistenciaMedica"
+					value="#{cadastroDeMortesBean.morte.assistenciaMedica}">
 					<f:selectItem itemLabel="Sim" itemValue="true" />
 					<f:selectItem itemLabel="Não" itemValue="false" />
 				</p:selectOneRadio>
-				
-					
-				</p:panelGrid>
+			</p:panelGrid>
 			<p:panelGrid columns="2">
 				<p:commandButton value="Salvar"
 					actionListener="#{cadastroDeMortesBean.salvar}"
 					update=":mensagem :formCadastro:painel :formListagem:tabela" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();">
+					<f:actionListener
+						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"></f:actionListener>
+				</p:commandButton>
 			</p:panelGrid>
-			
 		</h:form>
 	</p:dialog>
-
-</body>
+</h:body>
 </html>

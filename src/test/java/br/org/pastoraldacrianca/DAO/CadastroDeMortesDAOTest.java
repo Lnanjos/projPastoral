@@ -1,8 +1,11 @@
 package br.org.pastoraldacrianca.DAO;
 
+import java.util.Date;
 import java.util.List;
+
 import org.junit.Ignore;
 import org.junit.Test;
+
 import br.org.pastoraldacrianca.domain.CadastroDeMortes;
 import br.org.pastoraldacrianca.domain.Crianca;
 
@@ -13,18 +16,21 @@ public class CadastroDeMortesDAOTest {
 	@Test
 	public void salvar() {
 
-		Long codCrianca = 1L;
+		Long codCrianca = 2L;
 
 		CriancaDAO criancaDAO = new CriancaDAO();
 		Crianca crianca = criancaDAO.buscar(codCrianca);
 
 		CadastroDeMortesDAO cadastroDAO = new CadastroDeMortesDAO();
 		CadastroDeMortes cadastro = new CadastroDeMortes();
-
+		
+		Date dataCadastro = cadastroDAO.buscarDataCadastro(crianca);
+		
 		cadastro.setCrianca(crianca);
 		cadastro.setAssistenciaMedica(true);
 		cadastro.setCausaDaMorte("H1N1");
 		cadastro.setDescricao("A criança manifestou sintomas após tomar a vacina da H1N1,e acabou falecendo");
+	    System.out.println(dataCadastro);
 
 		cadastroDAO.salvar(cadastro);
 

@@ -8,6 +8,7 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Crianca</title>
+	<h:outputScript library="js" name="scripts.js" />
 </h:head>
 <h:body>
 	<p:layoutUnit>
@@ -42,7 +43,7 @@
 				</p:column>
 				<p:column headerText="Data Nasc." width="10%">
 					<h:outputText value="#{crianca.dataNascimento}">
-						<f:convertDateTime pattern="dd/mm/yyyy" />
+						<f:convertDateTime locale="pt_BR" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Peso Nasc.">
@@ -104,9 +105,10 @@
 					required="true" value="#{criancaBean.crianca.dataNascimento}"
 					disabled="#{criancaBean.addVisita}"></p:calendar>
 				<p:outputLabel for="pN" value="Peso Nasc"></p:outputLabel>
-				<p:inputNumber id="pN" minValue="0.001" maxValue="99.000"
-					symbolPosition="s" symbol="Kg" requiredMessage="Campo Obrigatório"
-					required="true" value="#{criancaBean.crianca.pesoNascimento}"
+				<p:inputNumber id="pN" minValue="0.01" maxValue="99.00"
+					decimalPlaces="2" symbolPosition="s" symbol="Kg"
+					requiredMessage="Campo Obrigatório" required="true"
+					value="#{criancaBean.crianca.pesoNascimento}"
 					disabled="#{criancaBean.addVisita}"></p:inputNumber>
 				<p:outputLabel for="endereco" value="Endereço"></p:outputLabel>
 				<p:inputText id="endereco" maxlength="50" size="30" required="true"
@@ -118,18 +120,16 @@
 					disabled="#{criancaBean.editar}" required="true"
 					value="#{criancaBean.visita.dataVisita}"></p:calendar>
 				<p:outputLabel for="pesoAtual" value="Peso Atual"></p:outputLabel>
-				<p:inputNumber id="pesoAtual" minValue="0.001" maxValue="99.000"
+				<p:inputNumber id="pesoAtual" minValue="0.01" maxValue="99.00"
 					required="true" symbol="Kg" requiredMessage="Campo Obrigatório"
 					symbolPosition="s" value="#{criancaBean.visita.peso}"
 					disabled="#{criancaBean.editar}"></p:inputNumber>
 				<p:outputLabel for="At" value="Atendimento"></p:outputLabel>
-				<p:selectOneMenu id="At" disabled="#{criancaBean.editar}">
-					<f:selectItem itemValue="#{criancaBean.visita.atendimento}"
-						itemLabel="Sem necessidade"></f:selectItem>
-					<f:selectItem itemValue="#{criancaBean.visita.atendimento}"
-						itemLabel="Sim"></f:selectItem>
-					<f:selectItem itemValue="#{criancaBean.visita.atendimento}"
-						itemLabel="Não"></f:selectItem>
+				<p:selectOneMenu id="At" disabled="#{criancaBean.editar}"
+					value="#{criancaBean.visita.atendimento}">
+					<f:selectItem itemValue="não precisou" itemLabel="Sem necessidade"></f:selectItem>
+					<f:selectItem itemValue="Sim" itemLabel="Sim"></f:selectItem>
+					<f:selectItem itemValue="Não" itemLabel="Não"></f:selectItem>
 				</p:selectOneMenu>
 				<p:outputLabel value="Lider"></p:outputLabel>
 				<p:selectOneMenu value="#{criancaBean.visita.lider}"

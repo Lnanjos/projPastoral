@@ -1,12 +1,16 @@
 package br.org.pastoraldacrianca.bean;
 import java.io.Serializable;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+
+import org.hibernate.exception.ConstraintViolationException;
 import org.omnifaces.util.Messages;
 import org.primefaces.context.RequestContext;
+
 import br.org.pastoraldacrianca.DAO.CriancaDAO;
 import br.org.pastoraldacrianca.DAO.LiderDAO;
 import br.org.pastoraldacrianca.DAO.VisitaDAO;
@@ -94,7 +98,10 @@ public class CriancaBean implements Serializable{
 	public void salvar(){
 		try {
 			CriancaDAO criancaDAO = new CriancaDAO();
+			crianca.setVivo(true);
 			crianca = criancaDAO.salvar(crianca);
+			
+			
 			
 			if (editar == false) {
 				visita.setCrianca(crianca);
@@ -113,23 +120,26 @@ public class CriancaBean implements Serializable{
 			}
 			
 			editar = false;
-			criancas = criancaDAO.lista();
+			criancas = criancaDAO.listaOrCriancasViva();
 			
 			LiderDAO liderDAO = new LiderDAO();
 			lideres = liderDAO.lista();
 			
 			Messages.addGlobalInfo("Registro salvo com sucesso");
-		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocooreu um erro ao tentar");
+		}catch (ConstraintViolationException erro){
+			Messages.addGlobalError("Já existe um registro salvo com esse número do SUS");
+		}catch (Exception erro) {
+			Messages.addGlobalError("Ocooreu um erro ao tentar salvar");
 			erro.printStackTrace();
 		}
+		
 	}
 	
 	@PostConstruct
 	public void listar() {
 		try {
 			CriancaDAO criancaDAO = new CriancaDAO();
-			criancas = criancaDAO.listaOrCriancasViva("nome");
+			criancas = criancaDAO.listaOrCriancasViva();
 		} catch (Exception e) {
 			Messages.addGlobalError("Ocorreu um erro ao listar os estados");
 			e.printStackTrace();
@@ -141,6 +151,7 @@ public class CriancaBean implements Serializable{
 		addVisita = false;
 		crianca = (Crianca) evento.getComponent().getAttributes()
 				.get("criancaSelecionada");
+		
 	}
 	
 	public void adicionaVisita(ActionEvent evento) {
@@ -159,7 +170,7 @@ public class CriancaBean implements Serializable{
 			
 			criancaDAO.excluir(crianca);
 
-			criancas = criancaDAO.lista();
+			criancas = criancaDAO.listaOrCriancasViva();
 
 			Messages.addGlobalInfo("Estado removido com sucesso");
 		} catch (Exception e) {

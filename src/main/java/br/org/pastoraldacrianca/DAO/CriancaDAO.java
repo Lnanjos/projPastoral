@@ -13,16 +13,16 @@ import br.org.pastoraldacrianca.util.HibernateUtil;
 public class CriancaDAO extends GenericDAO<Crianca>{
 
 	@SuppressWarnings("unchecked")
-	public List<Crianca> listaOrCriancasViva(String campoOrdenacao){
+	public List<Crianca> listaOrCriancasViva(){
 		//acessa a fábrica de e...
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try{
 			//atribui a classe em execução a consulta
 			Criteria consulta = sessao.createCriteria(Crianca.class);
 			//define restrição para retornar apenas crianças vivas
-			consulta.add(Restrictions.eq("crianca.vivo", true));
+			consulta.add(Restrictions.eq("vivo", true));
 			//define a ordenação
-			consulta.addOrder( Order.asc(campoOrdenacao));
+			consulta.addOrder( Order.asc("nome"));
 			//atribui a consulta ao resultado do tipo List
 			List<Crianca> resultado = consulta.list();
 			return resultado;

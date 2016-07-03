@@ -2,14 +2,18 @@ package br.org.pastoraldacrianca.domain;
 
 
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @SuppressWarnings("serial")
 @Entity
 public class CadastroDeMortes extends GenericDomain {
 
+	@OneToOne
 	@JoinColumn(nullable = false)
 	private Crianca crianca;	
 	
@@ -22,7 +26,12 @@ public class CadastroDeMortes extends GenericDomain {
 	@Column(nullable = false,length = 250)
 	private boolean assistenciaMedica;
 	
-
+	@Column(nullable = false)
+	private Date dataCadastro;
+	
+	@Column(nullable = false)
+	private Date dataMorte;
+	
 	public Crianca getCrianca() {
 		return crianca;
 	}
@@ -54,6 +63,21 @@ public class CadastroDeMortes extends GenericDomain {
 	public void setAssistenciaMedica(boolean assistenciaMedica) {
 		this.assistenciaMedica = assistenciaMedica;
 	}
-	
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	public Date getDataMorte() {
+		return dataMorte;
+	}
+
+	public void setDataMorte(Date dataMorte) {
+		this.dataMorte = dataMorte;
+	}	
 	
 }

@@ -87,11 +87,13 @@ public class VisitaBean implements Serializable {
 	@PostConstruct
 	public void listar() {
 		try {
+			novo();
+			
 			VisitaDAO visitaDAO = new VisitaDAO();
 			visitas = visitaDAO.lista();
 
 			CriancaDAO criancaDAO = new CriancaDAO();
-			criancas = criancaDAO.lista();
+			criancas = criancaDAO.listaOrCriancasViva();
 
 			LiderDAO liderDAO = new LiderDAO();
 			lideres = liderDAO.lista();
@@ -107,7 +109,7 @@ public class VisitaBean implements Serializable {
 			setEditarVisita(false);
 
 			CriancaDAO criancaDAO = new CriancaDAO();
-			criancas = criancaDAO.lista();
+			criancas = criancaDAO.listaOrCriancasViva();
 
 			LiderDAO liderDAO = new LiderDAO();
 			lideres = liderDAO.lista();
@@ -129,7 +131,7 @@ public class VisitaBean implements Serializable {
 			visita = new Visita();
 
 			CriancaDAO criancaDAO = new CriancaDAO();
-			criancas = criancaDAO.lista();
+			criancas = criancaDAO.listaOrCriancasViva();
 
 			LiderDAO liderDAO = new LiderDAO();
 			lideres = liderDAO.lista();
@@ -152,7 +154,7 @@ public class VisitaBean implements Serializable {
 
 			visitas = visitaDAO.lista();
 
-			Messages.addGlobalInfo("Cidade removida com sucesso");
+			Messages.addGlobalInfo("Registro removida com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover a cidade");
 			erro.printStackTrace();
@@ -167,28 +169,14 @@ public class VisitaBean implements Serializable {
 
 			LiderDAO liderDAO = new LiderDAO();
 			lideres = liderDAO.lista();
+			lider = visita.getLider();
 
 			CriancaDAO criancaDAO = new CriancaDAO();
-			criancas = criancaDAO.lista();			
+			criancas = criancaDAO.listaOrCriancasViva();
+			crianca = visita.getCrianca();
 		} catch (Exception e) {
 			e.printStackTrace();
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar uma nova cidade");
 		}
 	}
-
-	/*
-	 * Método utilizado para buscas as visitas de uma determinada criança com um
-	 * oneselectmenu no header public void buscarVC(AjaxBehaviorEvent evento){
-	 * VisitaDAO visitaDAO = new VisitaDAO(); visitas = visitaDAO.lista();
-	 * visitaC = new ArrayList<Visita>();
-	 * 
-	 * for(Visita visitaSelecionada : visitas){
-	 * 
-	 * if (visitaSelecionada.getCrianca().getCodigo() == crianca.getCodigo()) {
-	 * visitaC.add(visitaSelecionada); }
-	 * 
-	 * visitas = visitaC;
-	 * 
-	 * } }
-	 */
 }

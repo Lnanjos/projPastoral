@@ -32,7 +32,7 @@
 		 
 		<!-- Cria as tabelas do banco de dados -->
 		
-		<property name="hbm2ddl.auto">create</property>
+		<property name="hbm2ddl.auto">validate</property>
 		
 		<!-- Mapeamento das entidades -->
 		 
@@ -40,9 +40,7 @@
 		<mapping class="br.org.pastoraldacrianca.domain.Lider" />
 		<mapping class="br.org.pastoraldacrianca.domain.Visita" />
 		<mapping class="br.org.pastoraldacrianca.domain.CadastroDeMortes" />
-				
-
-	
+		<mapping class="br.org.pastoraldacrianca.domain.NaoAtendimento" />
 
 	</session-factory>
 

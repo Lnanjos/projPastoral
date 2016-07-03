@@ -13,7 +13,7 @@ public class CriancaDAOTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-
+	@Ignore
 	public void salvar() {
 
 		Crianca crianca = new Crianca();
@@ -88,11 +88,10 @@ public class CriancaDAOTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	@Ignore
 	public void listar() {
 
 		CriancaDAO criancaDAO = new CriancaDAO();
-		List<Crianca> criancas = criancaDAO.lista();
+		List<Crianca> criancas = criancaDAO.listaOrCriancasViva();
 
 		for (Crianca crianca : criancas) {
 			System.out.println(crianca.getNome());

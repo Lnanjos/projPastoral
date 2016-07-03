@@ -12,7 +12,7 @@ public class Crianca extends GenericDomain{
 	@Column(nullable = false,length = 50)
 	private String nome;
 	
-	@Column(nullable = false, length = 18)
+	@Column(nullable = false, length = 18,unique = true)
 	private String numSUS;
 	
 	@Column(nullable = false,length = 50)

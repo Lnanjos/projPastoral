@@ -8,6 +8,7 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Visitas</title>
+	<h:outputScript library="js" name="scripts.js" />
 </h:head>
 <h:body>
 	<p:layoutUnit>
@@ -66,7 +67,7 @@
 				</p:column>
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{visitaBean.novo}">
+						actionListener="#{visitaBean.novo}" update=":formCadastro:painel">
 						<f:actionListener
 							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"></f:actionListener>
 					</p:commandButton>
@@ -94,7 +95,7 @@
 						itemLabel="Selecione uma crianca"></f:selectItem>
 					<f:selectItems value="#{visitaBean.criancas}" var="crianca"
 						itemValue="#{crianca}" itemLabel="#{crianca.nome}"></f:selectItems>
-					<f:ajax event="change" render="@form"></f:ajax>
+					<f:ajax event="change" render="selNum"></f:ajax>
 				</p:selectOneMenu>
 				<p:outputLabel for="selNum" value="Num.Sus"></p:outputLabel>
 				<p:selectOneMenu id="selNum" value="#{visitaBean.crianca}"
@@ -104,7 +105,7 @@
 						itemLabel="Selecione uma Criança pelo número do SUS"></f:selectItem>
 					<f:selectItems value="#{visitaBean.criancas}" var="crianca"
 						itemValue="#{crianca}" itemLabel="#{crianca.numSUS}"></f:selectItems>
-					<f:ajax event="change" render="@form"></f:ajax>
+					<f:ajax event="change" render="selC"></f:ajax>
 				</p:selectOneMenu>
 				<p:outputLabel for="dataV" value="Data Visita"></p:outputLabel>
 				<p:calendar id="dataV" requiredMessage="Campo Obrigatório"
@@ -117,7 +118,7 @@
 				<p:selectOneMenu id="At" required="true"
 					requiredMessage="Selecione um atendimento"
 					value="#{visitaBean.visita.atendimento}">
-					<f:selectItem itemValue="Sem necessidade"
+					<f:selectItem itemValue="Não precisou"
 						itemLabel="Sem necessidade"></f:selectItem>
 					<f:selectItem itemValue="Sim" itemLabel="Sim"></f:selectItem>
 					<f:selectItem itemValue="Não" itemLabel="Não"></f:selectItem>
@@ -139,7 +140,10 @@
 				<p:commandButton value="Salvar"
 					actionListener="#{visitaBean.salvar}"
 					update=":mensagem :formCadastro:painel :formListagem:tabela" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();">
+					<f:actionListener
+						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"></f:actionListener>
+				</p:commandButton>
 			</p:panelGrid>
 		</h:form>
 	</p:dialog>

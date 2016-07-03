@@ -7,8 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+@SuppressWarnings("serial")
 @Entity
-public class NaoAtendimento {
+public class NaoAtendimento extends GenericDomain{
 	
 	@Column(nullable = false)
 	private Date dataNA;

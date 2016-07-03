@@ -6,8 +6,9 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Não Atendimento</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Não Atendimento</title>
+	<h:outputScript library="js" name="scripts.js" />
 </h:head>
 <h:body>
 	<p:layoutUnit>
@@ -41,8 +42,7 @@
 					<h:outputText value="#{naoAtendimento.lider.nome}"></h:outputText>
 				</p:column>
 
-				<p:column headerText="Responsável"
-					sortBy="#{naoAtendimento.respAt}">
+				<p:column headerText="Responsável" sortBy="#{naoAtendimento.respAt}">
 					<h:outputText value="#{naoAtendimento.respAt}"></h:outputText>
 				</p:column>
 
@@ -93,9 +93,10 @@
 					<f:selectItems value="#{naoAtendimentoBean.criancas}" var="crianca"
 						itemValue="#{crianca}" itemLabel="#{crianca.nome}"></f:selectItems>
 					<f:ajax event="change" render="selNum"></f:ajax>
-					
+
 				</p:selectOneMenu>
-				<h:outputLabel for="selNum" value="Selecione a criança pelo número do SUS"></h:outputLabel>
+				<h:outputLabel for="selNum"
+					value="Selecione a criança pelo número do SUS"></h:outputLabel>
 				<p:selectOneMenu id="selNum" value="#{naoAtendimentoBean.crianca}"
 					converter="omnifaces.SelectItemsConverter" required="true"
 					requiredMessage="Selecione uma criança" filter="true">
@@ -104,7 +105,7 @@
 					<f:selectItems value="#{naoAtendimentoBean.criancas}" var="crianca"
 						itemValue="#{crianca}" itemLabel="#{crianca.numSus}"></f:selectItems>
 					<f:ajax event="change" render="selC"></f:ajax>
-					
+
 				</p:selectOneMenu>
 				<p:outputLabel for="dataNA" value="Data de Não Atendimento"></p:outputLabel>
 				<p:calendar id="dataNA" requiredMessage="Campo Obrigatório"
@@ -139,9 +140,8 @@
 				</p:inputText>
 
 				<p:outputLabel value="Sintomas apresentados"></p:outputLabel>
-				<p:inputText
-					value="#{naoAtendimentoBean.naoAtendimento.sintoma}" cols="30"
-					maxlength="250" autoResize="false"
+				<p:inputText value="#{naoAtendimentoBean.naoAtendimento.sintoma}"
+					cols="30" maxlength="250" autoResize="false"
 					placeholder="Febre, dor, gripe, etc...">
 				</p:inputText>
 			</p:panelGrid>

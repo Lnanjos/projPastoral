@@ -17,6 +17,8 @@ public class GenericDomain implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long codigo;
 	
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

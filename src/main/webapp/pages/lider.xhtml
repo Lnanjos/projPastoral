@@ -80,12 +80,14 @@
 				<h:outputLabel for="pwd1" value="Senha: " />
 				<p:password validatorMessage="Erro de confirmação de senha"
 					id="pwd1" value="#{liderBean.lider.senha}" match="pwd2"
-					label="Senha" />
+					label="Senha" feedback="true" />
 
 				<h:outputLabel for="pwd2" value="Confirmação da Senha: " />
 				<p:password validatorMessage="Erro de confirmação de senha"
 					id="pwd2" value="#{liderBean.lider.senha}"
-					label="Confirmação da senha" />
+					label="Confirmação da senha">
+					<f:validateLength minimum="6" maximum="8"></f:validateLength>
+					</p:password>
 				<p:outputLabel for="endereco" value="Endereço"></p:outputLabel>
 				<p:inputText id="endereco" value="#{liderBean.lider.endereco}"
 					maxlength="50" size="30" required="true"
