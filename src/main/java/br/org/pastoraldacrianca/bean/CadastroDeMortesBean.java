@@ -64,7 +64,7 @@ public class CadastroDeMortesBean implements Serializable {
 			setMortes(cadastroDAO.lista());
 
 			CriancaDAO criancaDAO = new CriancaDAO();
-			criancas = criancaDAO.lista();
+			criancas = criancaDAO.listaOrCriancasViva();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,7 +80,7 @@ public class CadastroDeMortesBean implements Serializable {
 			cadastroDAO.salvar(morte);
 
 			CriancaDAO criancaDAO = new CriancaDAO();
-			criancas = criancaDAO.lista();
+			criancas = criancaDAO.listaOrCriancasViva();
 
 			setMortes(cadastroDAO.lista());
 
@@ -98,7 +98,7 @@ public class CadastroDeMortesBean implements Serializable {
 	public void listar() {
 		try {
 			CriancaDAO criancaDAO = new CriancaDAO();
-			criancas = criancaDAO.lista();
+			criancas = criancaDAO.listaOrCriancasViva();
 
 			CadastroDeMortesDAO cadastroDAO = new CadastroDeMortesDAO();
 			setMortes(cadastroDAO.lista());
@@ -128,12 +128,12 @@ public class CadastroDeMortesBean implements Serializable {
 			morte = (CadastroDeMortes) evento.getComponent().getAttributes()
 					.get("cadastroSelecionado");
 			CriancaDAO criancaDAO = new CriancaDAO();
-			criancas = criancaDAO.lista();
+			criancas = criancaDAO.listaOrCriancasViva();
 
 			CadastroDeMortesDAO cadastroDAO = new CadastroDeMortesDAO();
-			setMortes(cadastroDAO.lista());
 
 			cadastroDAO.excluir(morte);
+			setMortes(cadastroDAO.lista());
 
 			Messages.addGlobalInfo("Morte removido com sucesso");
 		} catch (Exception e) {

@@ -1,4 +1,5 @@
 package br.org.pastoraldacrianca.bean;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,16 +22,16 @@ import br.org.pastoraldacrianca.domain.Visita;
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class CriancaBean implements Serializable{
-	
+public class CriancaBean implements Serializable {
+
 	private Crianca crianca;
 	private Visita visita;
 	private boolean editar = false;
 	private boolean addVisita = false;
-	
+
 	private List<Crianca> criancas;
 	private List<Lider> lideres;
-	
+
 	public boolean isAddVisita() {
 		return addVisita;
 	}
@@ -79,14 +80,14 @@ public class CriancaBean implements Serializable{
 		this.lideres = lideres;
 	}
 
-	public void novo(){
+	public void novo() {
 		try {
 			crianca = new Crianca();
 			visita = new Visita();
-			
+
 			editar = false;
 			addVisita = false;
-			
+
 			LiderDAO liderDAO = new LiderDAO();
 			lideres = liderDAO.lista();
 		} catch (Exception e) {
@@ -94,88 +95,87 @@ public class CriancaBean implements Serializable{
 			Messages.addFlashGlobalError("Ocorreu um erro ao gerar nova criança");
 		}
 	}
-	
-	public void salvar(){
+
+	public void salvar() {
 		try {
 			CriancaDAO criancaDAO = new CriancaDAO();
 			crianca.setVivo(true);
 			crianca = criancaDAO.salvar(crianca);
-			
-			
-			
+
 			if (editar == false) {
 				visita.setCrianca(crianca);
-				
+
 				VisitaDAO visitaDAO = new VisitaDAO();
 				visitaDAO.salvar(visita);
-				
+
 				visita = new Visita();
-			}else {
+			} else {
 				RequestContext context = RequestContext.getCurrentInstance();
 				context.execute("PF('dialogo').hide();");
 			}
-			
+
 			if (addVisita == false) {
 				crianca = new Crianca();
 			}
-			
+
 			editar = false;
 			criancas = criancaDAO.listaOrCriancasViva();
-			
+
 			LiderDAO liderDAO = new LiderDAO();
 			lideres = liderDAO.lista();
-			
+
 			Messages.addGlobalInfo("Registro salvo com sucesso");
-		}catch (ConstraintViolationException erro){
+		} catch (ConstraintViolationException erro) {
 			Messages.addGlobalError("Já existe um registro salvo com esse número do SUS");
-		}catch (Exception erro) {
+		} catch (Exception erro) {
 			Messages.addGlobalError("Ocooreu um erro ao tentar salvar");
 			erro.printStackTrace();
 		}
-		
+
 	}
-	
+
 	@PostConstruct
 	public void listar() {
 		try {
 			CriancaDAO criancaDAO = new CriancaDAO();
 			criancas = criancaDAO.listaOrCriancasViva();
 		} catch (Exception e) {
-			Messages.addGlobalError("Ocorreu um erro ao listar os estados");
+			Messages.addGlobalError("Ocorreu um erro ao listar as criancas");
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void editar(ActionEvent evento) {
 		editar = true;
 		addVisita = false;
 		crianca = (Crianca) evento.getComponent().getAttributes()
 				.get("criancaSelecionada");
-		
+
 	}
-	
+
 	public void adicionaVisita(ActionEvent evento) {
 		addVisita = true;
 		editar = false;
 		crianca = (Crianca) evento.getComponent().getAttributes()
 				.get("criancaSelecionada");
 	}
-	
-	
+
 	public void excluir(ActionEvent evento) {
 		try {
 			crianca = (Crianca) evento.getComponent().getAttributes()
 					.get("criancaSelecionada");
 			CriancaDAO criancaDAO = new CriancaDAO();
-			
+
 			criancaDAO.excluir(crianca);
 
 			criancas = criancaDAO.listaOrCriancasViva();
 
-			Messages.addGlobalInfo("Estado removido com sucesso");
+			Messages.addGlobalInfo("Criança removido com sucesso");
+		} catch (ConstraintViolationException erro) {
+			Messages.addGlobalError("Existe visitas salvas para essa criança");
 		} catch (Exception e) {
 			e.printStackTrace();
-			Messages.addGlobalError("Ocorreu um erro ao remover o estado");
+			Messages.addGlobalError("Ocorreu um erro ao remover a criança");
 		}
 	}
 }

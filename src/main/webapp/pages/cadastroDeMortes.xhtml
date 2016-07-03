@@ -31,8 +31,7 @@
 							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"></f:actionListener>
 					</p:commandButton>
 				</f:facet>
-				<p:column headerText="Nome"
-					sortBy="#{cadastroDeMorte.crianca.nome}"
+				<p:column headerText="Nome" sortBy="#{cadastroDeMorte.crianca.nome}"
 					filterBy="#{cadastroDeMorte.crianca.nome}">
 					<h:outputText value="#{cadastroDeMorte.crianca.nome}"></h:outputText>
 				</p:column>
@@ -47,8 +46,7 @@
 					<h:outputText value="#{cadastroDeMorte.crianca.nomeMae}"></h:outputText>
 				</p:column>
 				<p:column headerText="Data Nasc." width="10%">
-					<h:outputText
-						value="#{cadastroDeMorte.crianca.dataNascimento}">
+					<h:outputText value="#{cadastroDeMorte.crianca.dataNascimento}">
 						<f:convertDateTime locale="pt_BR" />
 					</h:outputText>
 				</p:column>
@@ -75,7 +73,12 @@
 						update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
 						<f:attribute name="cadastroSelecionado" value="#{cadastroDeMorte}"></f:attribute>
 					</p:commandButton>
-
+					<p:confirmDialog global="true">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
@@ -93,8 +96,8 @@
 					requiredMessage="Selecione uma criança" filter="true">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione uma crianca"></f:selectItem>
-					<f:selectItems value="#{cadastroDeMortesBean.criancas}" var="crianca"
-						itemValue="#{crianca}" itemLabel="#{crianca.nome}"></f:selectItems>
+					<f:selectItems value="#{cadastroDeMortesBean.criancas}"
+						var="crianca" itemValue="#{crianca}" itemLabel="#{crianca.nome}"></f:selectItems>
 					<f:ajax event="change" render="selNum"></f:ajax>
 				</p:selectOneMenu>
 				<p:outputLabel for="selNum" value="Num.Sus"></p:outputLabel>
@@ -103,8 +106,8 @@
 					requiredMessage="Selecione uma criança" filter="true">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione uma Criança pelo número do SUS"></f:selectItem>
-					<f:selectItems value="#{cadastroDeMortesBean.criancas}" var="crianca"
-						itemValue="#{crianca}" itemLabel="#{crianca.numSUS}"></f:selectItems>
+					<f:selectItems value="#{cadastroDeMortesBean.criancas}"
+						var="crianca" itemValue="#{crianca}" itemLabel="#{crianca.numSUS}"></f:selectItems>
 					<f:ajax event="change" render="selC"></f:ajax>
 				</p:selectOneMenu>
 				<p:outputLabel for="popup" value="Data de óbito" />
