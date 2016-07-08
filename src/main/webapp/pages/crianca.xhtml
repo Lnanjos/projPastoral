@@ -47,7 +47,7 @@
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Peso Nasc.">
-					<h:outputText value="#{crianca.pesoNascimento}"></h:outputText>
+					<h:outputText value="#{crianca.pesoNascimento} kg"></h:outputText>
 				</p:column>
 				<p:column headerText="Endereço">
 					<h:outputText value="#{crianca.endereco}"></h:outputText>
@@ -132,12 +132,6 @@
 					symbolPosition="s" value="#{criancaBean.visita.peso}"
 					disabled="#{criancaBean.editar}"></p:inputNumber>
 				<p:outputLabel for="At" value="Atendimento"></p:outputLabel>
-				<p:selectOneMenu id="At" disabled="#{criancaBean.editar}"
-					value="#{criancaBean.visita.atendimento}">
-					<f:selectItem itemValue="não precisou" itemLabel="Sem necessidade"></f:selectItem>
-					<f:selectItem itemValue="Sim" itemLabel="Sim"></f:selectItem>
-					<f:selectItem itemValue="Não" itemLabel="Não"></f:selectItem>
-				</p:selectOneMenu>
 				<p:outputLabel value="Lider"></p:outputLabel>
 				<p:selectOneMenu value="#{criancaBean.visita.lider}"
 					converter="omnifaces.SelectItemsConverter" required="true"

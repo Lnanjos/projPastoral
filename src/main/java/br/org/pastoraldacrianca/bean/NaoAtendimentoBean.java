@@ -3,6 +3,8 @@ package br.org.pastoraldacrianca.bean;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 import br.org.pastoraldacrianca.DAO.CriancaDAO;
@@ -13,6 +15,8 @@ import br.org.pastoraldacrianca.domain.Lider;
 import br.org.pastoraldacrianca.domain.NaoAtendimento;
 
 @SuppressWarnings("serial")
+@ManagedBean
+@ViewScoped
 public class NaoAtendimentoBean implements Serializable{
 	
 	private Crianca crianca;
@@ -66,7 +70,7 @@ public class NaoAtendimentoBean implements Serializable{
 			naoAtendimentos = naoAtendimentoDAO.lista();
 
 			CriancaDAO criancaDAO = new CriancaDAO();
-			criancas = criancaDAO.lista();
+			criancas = criancaDAO.listaOrCriancasViva();
 
 			LiderDAO liderDAO = new LiderDAO();
 			lideres = liderDAO.lista();
@@ -82,7 +86,7 @@ public class NaoAtendimentoBean implements Serializable{
 			naoAtendimento = new NaoAtendimento();
 		
 			CriancaDAO criancaDAO = new CriancaDAO();
-			criancas = criancaDAO.lista();
+			criancas = criancaDAO.listaOrCriancasViva();
 
 			LiderDAO liderDAO = new LiderDAO();
 			lideres = liderDAO.lista();
@@ -104,13 +108,15 @@ public class NaoAtendimentoBean implements Serializable{
 			naoAtendimento = new NaoAtendimento();
 
 			CriancaDAO criancaDAO = new CriancaDAO();
-			criancas = criancaDAO.lista();
+			criancas = criancaDAO.listaOrCriancasViva();
 
 			LiderDAO liderDAO = new LiderDAO();
 			lideres = liderDAO.lista();
 
 			naoAtendimentos = naoAtendimentoDAO.lista();
-
+			
+			crianca = new Crianca();
+			lider = new Lider();
 			Messages.addGlobalInfo("Registro salvo com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o registro");
@@ -139,12 +145,15 @@ public class NaoAtendimentoBean implements Serializable{
 		try {
 			naoAtendimento = (NaoAtendimento) evento.getComponent().getAttributes()
 					.get("naoAtendimentoSelecionado");
-
+			
 			LiderDAO liderDAO = new LiderDAO();
 			lideres = liderDAO.lista();
 
 			CriancaDAO criancaDAO = new CriancaDAO();
-			criancas = criancaDAO.lista();	
+			criancas = criancaDAO.listaOrCriancasViva();	
+			
+			crianca = naoAtendimento.getCrianca();
+			lider = naoAtendimento.getLider();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

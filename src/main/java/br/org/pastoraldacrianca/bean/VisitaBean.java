@@ -2,7 +2,6 @@ package br.org.pastoraldacrianca.bean;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -13,6 +12,7 @@ import br.org.pastoraldacrianca.DAO.LiderDAO;
 import br.org.pastoraldacrianca.DAO.VisitaDAO;
 import br.org.pastoraldacrianca.domain.Crianca;
 import br.org.pastoraldacrianca.domain.Lider;
+import br.org.pastoraldacrianca.domain.NaoAtendimento;
 import br.org.pastoraldacrianca.domain.Visita;
 
 @SuppressWarnings("serial")
@@ -23,10 +23,19 @@ public class VisitaBean implements Serializable {
 	private Crianca crianca;
 	private Lider lider;
 	private boolean editarVisita = false;
+	private NaoAtendimento naoAt;
 
 	private List<Visita> visitas;
 	private List<Crianca> criancas;
 	private List<Lider> lideres;
+
+	public NaoAtendimento getNaoAt() {
+		return naoAt;
+	}
+
+	public void setNaoAt(NaoAtendimento naoAt) {
+		this.naoAt = naoAt;
+	}
 
 	public Crianca getCrianca() {
 		return crianca;
@@ -88,7 +97,7 @@ public class VisitaBean implements Serializable {
 	public void listar() {
 		try {
 			novo();
-			
+
 			VisitaDAO visitaDAO = new VisitaDAO();
 			visitas = visitaDAO.lista();
 
@@ -147,7 +156,8 @@ public class VisitaBean implements Serializable {
 
 	public void excluir(ActionEvent evento) {
 		try {
-			visita = (Visita) evento.getComponent().getAttributes().get("visitaSelecionada");
+			visita = (Visita) evento.getComponent().getAttributes()
+					.get("visitaSelecionada");
 
 			VisitaDAO visitaDAO = new VisitaDAO();
 			visitaDAO.excluir(visita);
@@ -161,7 +171,6 @@ public class VisitaBean implements Serializable {
 		}
 	}
 
-	
 	public void editar(ActionEvent evento) {
 		try {
 			visita = (Visita) evento.getComponent().getAttributes()
@@ -176,7 +185,8 @@ public class VisitaBean implements Serializable {
 			crianca = visita.getCrianca();
 		} catch (Exception e) {
 			e.printStackTrace();
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar uma nova cidade");
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar editar o registro");
 		}
 	}
+
 }

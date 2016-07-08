@@ -33,7 +33,6 @@ public class VisitaDAOTest {
 		visita.setCrianca(crianca);
 		visita.setLider(lider);
 		visita.setDataVisita(new Date("11/12/11"));
-		visita.setAtendimento("sem necessidade");
 		visita.setPeso(new BigDecimal(2.100));
 		visita.setObservacao("Nada a declarar");
 
@@ -56,7 +55,6 @@ public class VisitaDAOTest {
 		System.out.println(visita.getDataVisita().getDay() + "/"
 				+ visita.getDataVisita().getMonth() + "/"
 				+ visita.getDataVisita().getYear());
-		System.out.println("Atendimento = " + visita.getAtendimento());
 
 	}
 
@@ -76,8 +74,6 @@ public class VisitaDAOTest {
 		System.out.println(visita.getDataVisita().getDay() + "/"
 				+ visita.getDataVisita().getMonth() + "/"
 				+ visita.getDataVisita().getYear());
-		System.out.println("Atendimento = " + visita.getAtendimento());
-
 		Long codCrianca = 1L;
 		Long codLider = 1L;
 
@@ -90,7 +86,6 @@ public class VisitaDAOTest {
 		visita.setCrianca(crianca);
 		visita.setLider(lider);
 		visita.setDataVisita(new Date("11/01/12"));
-		visita.setAtendimento("sem necessidade");
 		visita.setPeso(new BigDecimal(2.600));
 		visita.setObservacao("gripe");
 
@@ -112,10 +107,6 @@ public class VisitaDAOTest {
 			System.out.println(visita.getDataVisita().getDay() + "/"
 					+ visita.getDataVisita().getMonth() + "/"
 					+ visita.getDataVisita().getYear());
-			System.out.println("Atendimento = " + visita.getAtendimento());
 		}
 	}
-	
-	
-
 }

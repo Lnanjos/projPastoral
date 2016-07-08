@@ -18,9 +18,6 @@ public class Visita extends GenericDomain {
 	@Column(nullable = false, precision = 5, scale = 3)
 	private BigDecimal peso;
 
-	@Column(nullable = false,length = 12)
-	private String atendimento;
-
 	@Column(length = 250)
 	private String observacao;
 	// campo destinado para anotação sobre doenças, indicadores de
@@ -48,14 +45,6 @@ public class Visita extends GenericDomain {
 
 	public void setPeso(BigDecimal peso) {
 		this.peso = peso;
-	}
-
-	public String getAtendimento() {
-		return atendimento;
-	}
-
-	public void setAtendimento(String atendimento) {
-		this.atendimento = atendimento;
 	}
 
 	public String getObservacao() {

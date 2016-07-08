@@ -38,9 +38,6 @@
 				<p:column headerText="Peso" sortBy="#{visita.peso}" width="8%">
 					<h:outputText value="#{visita.peso}kg"></h:outputText>
 				</p:column>
-				<p:column headerText="Atendimento" sortBy="#{visita.atendimento}">
-					<h:outputText value="#{visita.atendimento}"></h:outputText>
-				</p:column>
 				<p:column headerText="Lider" sortBy="#{visita.lider.nome}"
 					filterBy="#{visita.lider.nome}">
 					<h:outputText value="#{visita.lider.nome}"></h:outputText>
@@ -115,14 +112,6 @@
 					required="true" symbol="Kg" requiredMessage="Campo Obrigatório"
 					symbolPosition="s" value="#{visitaBean.visita.peso}"></p:inputNumber>
 				<p:outputLabel for="At" value="Atendimento"></p:outputLabel>
-				<p:selectOneMenu id="At" required="true"
-					requiredMessage="Selecione um atendimento"
-					value="#{visitaBean.visita.atendimento}">
-					<f:selectItem itemValue="Não precisou"
-						itemLabel="Sem necessidade"></f:selectItem>
-					<f:selectItem itemValue="Sim" itemLabel="Sim"></f:selectItem>
-					<f:selectItem itemValue="Não" itemLabel="Não"></f:selectItem>
-				</p:selectOneMenu>
 				<p:outputLabel value="Lider"></p:outputLabel>
 				<p:selectOneMenu value="#{visitaBean.lider}"
 					converter="omnifaces.SelectItemsConverter" required="true"

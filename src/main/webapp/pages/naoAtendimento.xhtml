@@ -21,7 +21,7 @@
 		<p:panel header="Nao Atendimento - Listagem">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
 				paginator="true" rows="10"
-				value="#{naoAtendimentoBean.naoAtendimento}" var="naoAtendimento">
+				value="#{naoAtendimentoBean.naoAtendimentos}" var="naoAtendimento">
 
 				<p:column headerText="Nome"
 					filterBy="#{naoAtendimento.crianca.nome}"
@@ -32,7 +32,7 @@
 				<p:column headerText="Data"
 					filterBy="#{naoAtendimento.dataNaoAtendimento}"
 					sortBy="#{naoAtendimento.dataNaoAtendimento}" width="12%">
-					<h:outputText value="#{naoAtendimento.dataNaoAtendimento}">
+					<h:outputText value="#{naoAtendimento.dataNA}">
 						<f:convertDateTime locale="pt_BR"></f:convertDateTime>
 					</h:outputText>
 				</p:column>
@@ -60,13 +60,16 @@
 						<p:confirm header="Confirmação"
 							message="Deseja excluir o registro de Não Atendimento"
 							icon="ui-icon-alert" />
-						<f:attribute name="naoAtendimentoSelecionada"
+						<f:attribute name="naoAtendimentoSelecionado"
 							value="#{naoAtendimento}" />
 					</p:commandButton>
 				</p:column>
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{naoAtendimentoBean.novo}" />
+						actionListener="#{naoAtendimentoBean.novo}">
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"></f:actionListener>
+					</p:commandButton>
 				</f:facet>
 			</p:dataTable>
 			<p:confirmDialog global="true">
@@ -77,6 +80,7 @@
 			</p:confirmDialog>
 		</p:panel>
 	</h:form>
+
 	<!-- Criação da caixa de dialogo novo -->
 	<p:dialog header="Não Atendimento - cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false"
@@ -84,7 +88,6 @@
 		<h:form id="formCadastro">
 			<p:panelGrid columns="2" id="painel">
 				<h:outputLabel for="selC" value="Selecione a criança"></h:outputLabel>
-
 				<p:selectOneMenu id="selC" value="#{naoAtendimentoBean.crianca}"
 					converter="omnifaces.SelectItemsConverter" required="true"
 					requiredMessage="Selecione uma criança" filter="true">
@@ -93,7 +96,6 @@
 					<f:selectItems value="#{naoAtendimentoBean.criancas}" var="crianca"
 						itemValue="#{crianca}" itemLabel="#{crianca.nome}"></f:selectItems>
 					<f:ajax event="change" render="selNum"></f:ajax>
-
 				</p:selectOneMenu>
 				<h:outputLabel for="selNum"
 					value="Selecione a criança pelo número do SUS"></h:outputLabel>
@@ -103,15 +105,12 @@
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione uma crianca"></f:selectItem>
 					<f:selectItems value="#{naoAtendimentoBean.criancas}" var="crianca"
-						itemValue="#{crianca}" itemLabel="#{crianca.numSus}"></f:selectItems>
+						itemValue="#{crianca}" itemLabel="#{crianca.numSUS}"></f:selectItems>
 					<f:ajax event="change" render="selC"></f:ajax>
-
 				</p:selectOneMenu>
 				<p:outputLabel for="dataNA" value="Data de Não Atendimento"></p:outputLabel>
 				<p:calendar id="dataNA" requiredMessage="Campo Obrigatório"
-					required="true"
-					value="#{naoAtendimentoBean.naoAtendimento.dataNaoAtendimento}"></p:calendar>
-
+					required="true" value="#{naoAtendimentoBean.naoAtendimento.dataNA}"></p:calendar>
 				<p:outputLabel value="Lider"></p:outputLabel>
 				<p:selectOneMenu value="#{naoAtendimentoBean.lider}"
 					converter="omnifaces.SelectItemsConverter" required="true"
@@ -121,24 +120,20 @@
 					<f:selectItems value="#{naoAtendimentoBean.lideres}" var="lider"
 						itemValue="#{lider}" itemLabel="#{lider.nome}"></f:selectItems>
 				</p:selectOneMenu>
-
 				<p:outputLabel value="Para onde foi encaminhado?"></p:outputLabel>
 				<p:inputText
 					value="#{naoAtendimentoBean.naoAtendimento.encaminhado}" cols="28"
 					maxlength="250" autoResize="false">
 				</p:inputText>
-
 				<p:outputLabel value="Responsável pelo atendimento no SUS"></p:outputLabel>
 				<p:inputText value="#{naoAtendimentoBean.naoAtendimento.respAt}"
 					cols="30" maxlength="250" autoResize="false">
 				</p:inputText>
-
 				<p:outputLabel value="Motivo do Não Atendimento no SUS"></p:outputLabel>
 				<p:inputText
 					value="#{naoAtendimentoBean.naoAtendimento.motivoNaoAT}" cols="30"
 					maxlength="250" autoResize="false">
 				</p:inputText>
-
 				<p:outputLabel value="Sintomas apresentados"></p:outputLabel>
 				<p:inputText value="#{naoAtendimentoBean.naoAtendimento.sintoma}"
 					cols="30" maxlength="250" autoResize="false"
