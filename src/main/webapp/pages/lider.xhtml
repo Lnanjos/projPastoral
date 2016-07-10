@@ -31,7 +31,7 @@
 					<h:outputText value="#{lider.nome}"></h:outputText>
 				</p:column>
 				<p:column headerText="Email" sortBy="#{lider.email}">
-					<h:outputText value="#{lider.email}"></h:outputText>
+					<h:outputText value="#{lider.usuario.email}"></h:outputText>
 				</p:column>
 				<p:column headerText="Endereço" sortBy="#{lider.endereco}">
 					<h:outputText value="#{lider.endereco}"></h:outputText>
@@ -43,13 +43,13 @@
 						<p:confirm header="Confirmação" message="Deseja excluir o lider?"
 							icon="ui-icon-alert" />
 						<f:attribute name="liderSelecionado" value="#{lider}" />
-						<f:actionListener
-							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"></f:actionListener>
 					</p:commandButton>
 					<p:commandButton icon="ui-icon-pencil"
 						actionListener="#{liderBean.editar}" update=":formCadastro:painel"
 						oncomplete="PF('dialogo').show();">
 						<f:attribute name="liderSelecionado" value="#{lider}"></f:attribute>
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"></f:actionListener>
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
@@ -74,20 +74,19 @@
 					maxlength="50" size="30" required="true"
 					requiredMessage="Campo Obrigatório"></p:inputText>
 				<p:outputLabel for="email" value="Email"></p:outputLabel>
-				<p:inputText id="email" value="#{liderBean.lider.email}"
+				<p:inputText id="email" value="#{liderBean.usuario.email}"
 					maxlength="50" size="30" required="true"
 					requiredMessage="Campo Obrigatório"></p:inputText>
 				<h:outputLabel for="pwd1" value="Senha: " />
 				<p:password validatorMessage="Erro de confirmação de senha"
-					id="pwd1" value="#{liderBean.lider.senha}" match="pwd2"
+					id="pwd1" value="#{liderBean.usuario.senha}" match="pwd2"
 					label="Senha" feedback="true" />
-
 				<h:outputLabel for="pwd2" value="Confirmação da Senha: " />
 				<p:password validatorMessage="Erro de confirmação de senha"
-					id="pwd2" value="#{liderBean.lider.senha}"
+					id="pwd2" value="#{liderBean.usuario.senha}"
 					label="Confirmação da senha">
 					<f:validateLength minimum="6" maximum="8"></f:validateLength>
-					</p:password>
+				</p:password>
 				<p:outputLabel for="endereco" value="Endereço"></p:outputLabel>
 				<p:inputText id="endereco" value="#{liderBean.lider.endereco}"
 					maxlength="50" size="30" required="true"
@@ -95,7 +94,10 @@
 			</p:panelGrid>
 			<p:panelGrid columns="2">
 				<p:commandButton value="Salvar" actionListener="#{liderBean.salvar}"
-					update=":mensagem :formCadastro:painel :formListagem:tabela" />
+					update=":mensagem :formCadastro:painel :formListagem:tabela">
+					<f:actionListener
+						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"></f:actionListener>
+				</p:commandButton>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</p:panelGrid>
 		</h:form>

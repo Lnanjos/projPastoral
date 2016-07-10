@@ -1,9 +1,13 @@
 package br.org.pastoraldacrianca.DAO;
 
 import java.util.List;
+
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.junit.Ignore;
 import org.junit.Test;
+
 import br.org.pastoraldacrianca.domain.Lider;
+import br.org.pastoraldacrianca.domain.Usuario;
 
 public class LiderDAOTest {
 
@@ -14,10 +18,20 @@ public class LiderDAOTest {
 		Lider lider = new Lider();
 
 		lider.setNome("Lider 1");
-		lider.setEmail("lider@1.com");
-		lider.setSenha("lider1");
 		lider.setEndereco("lider1endereco");
-
+		
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		Usuario usuario = new Usuario();
+		
+		usuario.setEmail("email1@email.com");
+		usuario.setSenha("123456");
+		usuario.setTipo('L');
+		
+		SimpleHash hash = new SimpleHash("md5",usuario.getSenha());
+		
+		usuario.setSenha(hash.toHex());
+		
+		lider.setUsuario(usuarioDAO.salvar(usuario));
 		liderDAO.salvar(lider);
 	}
 
@@ -30,8 +44,6 @@ public class LiderDAOTest {
 		Lider lider = liderDAO.buscar(codigo);
 
 		System.out.println(lider.getNome());
-		System.out.println(lider.getEmail());
-		System.out.println(lider.getSenha());
 
 	}
 
@@ -44,20 +56,13 @@ public class LiderDAOTest {
 		Lider lider = liderDAO.buscar(codigo);
 
 		System.out.println(lider.getNome());
-		System.out.println(lider.getEmail());
-		System.out.println(lider.getSenha());
 
 		lider.setNome("Lider 2");
-		lider.setEmail("lider@2.com");
-		lider.setSenha("lider2");
-
 		liderDAO.editar(lider);
 
 		liderDAO.buscar(codigo);
 
 		System.out.println(lider.getNome());
-		System.out.println(lider.getEmail());
-		System.out.println(lider.getSenha());
 	}
 
 	@Test
@@ -69,8 +74,6 @@ public class LiderDAOTest {
 
 		for (Lider lider : lideres) {
 			System.out.println(lider.getNome());
-			System.out.println(lider.getEmail());
-			System.out.println(lider.getSenha());
 		}
 	}
 	
@@ -83,8 +86,6 @@ public class LiderDAOTest {
 		Lider lider = liderDAO.buscar(codigo);
 
 		System.out.println(lider.getNome());
-		System.out.println(lider.getEmail());
-		System.out.println(lider.getSenha());
 		
 		liderDAO.excluir(lider);
 	}

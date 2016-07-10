@@ -14,12 +14,12 @@
 			<!-- cria um menu -->
 			<p:submenu label="Sistema">
 				<!-- cria um item do submenu -->
-				<p:menuitem value="Sair"></p:menuitem>
+				<p:menuitem value="Sair" url="/pages/autenticacao.xhtml"></p:menuitem>
 			</p:submenu>
 
 			<p:submenu label="Cadastros">
 				<p:menuitem value="Crianca" url="/pages/crianca.xhtml"></p:menuitem>
-				<p:menuitem value="Lider" url="/pages/lider.xhtml"></p:menuitem>
+				<p:menuitem value="Lider" url="/pages/lider.xhtml" disabled="#{autenticacaoBean.tipoUsuario}"></p:menuitem>
 				<p:menuitem value="Visita" url="/pages/visita.xhtml"></p:menuitem>
 				<p:menuitem value="Cadastro de mortes" url="/pages/cadastroDeMortes.xhtml"></p:menuitem>
 				<p:menuitem value="Não Atendimentos" url="/pages/naoAtendimento.xhtml"></p:menuitem>

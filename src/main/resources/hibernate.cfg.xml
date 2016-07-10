@@ -41,6 +41,8 @@
 		<mapping class="br.org.pastoraldacrianca.domain.Visita" />
 		<mapping class="br.org.pastoraldacrianca.domain.CadastroDeMortes" />
 		<mapping class="br.org.pastoraldacrianca.domain.NaoAtendimento" />
+		<mapping class="br.org.pastoraldacrianca.domain.Usuario" />
+		<mapping class="br.org.pastoraldacrianca.domain.Coordenador" />
 
 	</session-factory>
 

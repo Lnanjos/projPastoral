@@ -12,7 +12,6 @@ import br.org.pastoraldacrianca.DAO.LiderDAO;
 import br.org.pastoraldacrianca.DAO.VisitaDAO;
 import br.org.pastoraldacrianca.domain.Crianca;
 import br.org.pastoraldacrianca.domain.Lider;
-import br.org.pastoraldacrianca.domain.NaoAtendimento;
 import br.org.pastoraldacrianca.domain.Visita;
 
 @SuppressWarnings("serial")
@@ -23,19 +22,10 @@ public class VisitaBean implements Serializable {
 	private Crianca crianca;
 	private Lider lider;
 	private boolean editarVisita = false;
-	private NaoAtendimento naoAt;
 
 	private List<Visita> visitas;
 	private List<Crianca> criancas;
 	private List<Lider> lideres;
-
-	public NaoAtendimento getNaoAt() {
-		return naoAt;
-	}
-
-	public void setNaoAt(NaoAtendimento naoAt) {
-		this.naoAt = naoAt;
-	}
 
 	public Crianca getCrianca() {
 		return crianca;
