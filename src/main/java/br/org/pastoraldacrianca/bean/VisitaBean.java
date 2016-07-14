@@ -89,7 +89,7 @@ public class VisitaBean implements Serializable {
 			novo();
 
 			VisitaDAO visitaDAO = new VisitaDAO();
-			visitas = visitaDAO.lista();
+			visitas = visitaDAO.listaOr("dataVisita");
 
 			CriancaDAO criancaDAO = new CriancaDAO();
 			criancas = criancaDAO.listaOrCriancasViva();

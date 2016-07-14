@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2016-07-12T19:43:13 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="visitaUltMes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="90315bc8-2c06-465c-b03d-1b1156918ebb">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PastoralBD"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[select * from visitas;]]>
+	</queryString>
+	<field name="datavisita" class="java.sql.Date"/>
+	<field name="observacao" class="java.lang.String"/>
+	<field name="peso" class="java.math.BigDecimal"/>
+	<field name="crianca_codigo" class="java.lang.Long"/>
+	<field name="nomecrianca" class="java.lang.String"/>
+	<field name="nomemae" class="java.lang.String"/>
+	<field name="numsus" class="java.lang.String"/>
+	<field name="datanascimento" class="java.sql.Timestamp"/>
+	<field name="endereco" class="java.lang.String"/>
+	<field name="nomelider" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="109" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="555" height="109" uuid="30258cd3-8af2-4c18-8ac5-76e1aa14a8af"/>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="55" height="30" uuid="0df317f1-d179-4c53-ad07-7ee44bdb11f9"/>
+				<text><![CDATA[datavisita]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="0" width="50" height="30" uuid="23519989-092e-4c8d-a6f8-20bd945b13c2"/>
+				<text><![CDATA[observacao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="0" width="50" height="30" uuid="1e0e1e2b-2aae-4cad-bb45-54035ee92ef1"/>
+				<text><![CDATA[peso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="155" y="0" width="50" height="30" uuid="a53a7500-47e3-4696-90a2-4580a959fa73"/>
+				<text><![CDATA[crianca_codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="0" width="50" height="30" uuid="3cf69f47-3031-4b22-988a-8379093dd4f3"/>
+				<text><![CDATA[nomecrianca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="0" width="50" height="30" uuid="e9b66cd6-54e9-487a-bcce-238d0415f1e4"/>
+				<text><![CDATA[nomemae]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="0" width="50" height="30" uuid="0799fe3d-6986-42df-a439-e3b05d3a58c5"/>
+				<text><![CDATA[numsus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="0" width="50" height="30" uuid="365a0cf3-54ef-43a7-adec-cce31ec0088a"/>
+				<text><![CDATA[datanascimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="405" y="0" width="50" height="30" uuid="f217fcb3-d6c6-494c-9e04-294bfa9774fc"/>
+				<text><![CDATA[endereco]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="50" height="30" uuid="6f91e9d8-35d5-4973-ab64-73370d3ecdca"/>
+				<text><![CDATA[nomelider]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="505" y="0" width="50" height="30" uuid="b30da205-b86a-4067-abf4-c8cf42a05974"/>
+				<text><![CDATA[email]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="39" width="55" height="30" uuid="3be98c7f-acfb-4722-b2c5-f787908c6935"/>
+				<textFieldExpression><![CDATA[$F{datavisita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="55" y="39" width="50" height="30" uuid="0f9605e5-93eb-478d-a988-7c18e0a80a98"/>
+				<textFieldExpression><![CDATA[$F{observacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="39" width="50" height="30" uuid="5b213c5d-9a92-421c-9761-2bc4345b2dd4"/>
+				<textFieldExpression><![CDATA[$F{peso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="155" y="39" width="50" height="30" uuid="112a060b-9d7e-4f1a-b356-0aae8fede430"/>
+				<textFieldExpression><![CDATA[$F{crianca_codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="205" y="39" width="50" height="30" uuid="ebb167c8-deed-4760-83f5-01c805181689"/>
+				<textFieldExpression><![CDATA[$F{nomecrianca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="255" y="39" width="50" height="30" uuid="503f3ea4-b25f-486c-86d8-e54fb7bdea51"/>
+				<textFieldExpression><![CDATA[$F{nomemae}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="305" y="39" width="50" height="30" uuid="837796eb-48c9-4c49-8b2e-da9b15578e00"/>
+				<textFieldExpression><![CDATA[$F{numsus}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="39" width="50" height="30" uuid="c97bf08e-9faf-4ffa-82b3-5cd2aa9b6d20"/>
+				<textFieldExpression><![CDATA[$F{datanascimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="39" width="50" height="30" uuid="f247ee50-704c-419d-9bf4-281e94aa2e0d"/>
+				<textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="39" width="50" height="30" uuid="37d8dc9d-0836-481f-beed-0f3711b27ed5"/>
+				<textFieldExpression><![CDATA[$F{nomelider}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="505" y="39" width="50" height="30" uuid="cb1f8e87-7cb8-4324-9c9d-2a4a897399f0"/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

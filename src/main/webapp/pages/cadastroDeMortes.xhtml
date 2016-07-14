@@ -30,6 +30,7 @@
 						<f:actionListener
 							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"></f:actionListener>
 					</p:commandButton>
+					<p:commandButton value="Imprimir" icon="ui-icon-print" actionListener="#{cadastroDeMortesBean.imprimir}"></p:commandButton>
 				</f:facet>
 				<p:column headerText="Nome" sortBy="#{cadastroDeMorte.crianca.nome}"
 					filterBy="#{cadastroDeMorte.crianca.nome}">

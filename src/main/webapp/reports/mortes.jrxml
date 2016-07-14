@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2016-07-12T18:39:39 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mortes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c68c5891-66da-474b-b778-0ad018a6be2e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PastoralBD"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value="cHVibGljLmNyaWFuY2EgLDE4MCwxNSw2YmNiOTMwZC1hNWE4LTQyN2ItOWE5OC02MTRiOWMyYzQw&#xA;MGY7cHVibGljLmNhZGFzdHJvZGVtb3J0ZXMgLDE1LDI4LGIxNWQ0MzI2LTYzNzgtNDM0OS1iY2Yz&#xA;LTRkZWE3ZWQ4MThiYTs="/>
+	<parameter name="reportLogo" class="java.lang.String">
+		<parameterDescription><![CDATA[$reportLogo]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT public.crianca.datanascimento,
+	public.crianca.nome,
+	public.crianca.nomemae,
+	public.crianca.numsus,
+	public.cadastrodemortes.causadamorte,
+	public.cadastrodemortes.datacadastro,
+	public.cadastrodemortes.datamorte
+FROM public.cadastrodemortes
+	INNER JOIN public.crianca ON 
+	 public.cadastrodemortes.crianca_codigo = public.crianca.codigo]]>
+	</queryString>
+	<field name="datanascimento" class="java.sql.Timestamp"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="nomemae" class="java.lang.String"/>
+	<field name="numsus" class="java.lang.String"/>
+	<field name="causadamorte" class="java.lang.String"/>
+	<field name="datacadastro" class="java.sql.Timestamp"/>
+	<field name="datamorte" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="555" height="80" uuid="5697cbaa-f91b-4fe3-8fe6-ca40ecb16795"/>
+				<imageExpression><![CDATA["C:\\Users\\Leandro\\Desktop\\pastoral\\src\\main\\webapp\\reports\\logo2.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="280" height="30" uuid="7c3025d5-7e41-459d-b1a2-597ec129acf7"/>
+				<textElement>
+					<font fontName="SansSerif" size="22"/>
+				</textElement>
+				<text><![CDATA[Listagem de mortes cadastradas]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="3" width="100" height="30" uuid="3afa879e-fad3-4033-b0b5-5a57cc1e8606"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="6" width="100" height="30" uuid="af1dd097-a0e9-4d3b-8edd-f0e3b8a59030"/>
+				<text><![CDATA[Num Sus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="6" width="100" height="30" uuid="144223fb-7d0e-4774-9583-659d7b173245"/>
+				<text><![CDATA[Nome da Mae]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="6" width="100" height="30" uuid="cc37e613-113f-446e-9117-44586c3d5df2"/>
+				<text><![CDATA[Causa da morte]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="6" width="100" height="30" uuid="4498252c-227d-4cb8-91f7-f38f606c2e1b"/>
+				<text><![CDATA[Data de Cadastro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="3" width="100" height="30" uuid="af099492-0dac-47f3-a01b-e5cd3b9377d7"/>
+				<text><![CDATA[Data da Morte]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="30" uuid="cd2e7e23-5522-4e61-a350-48600c13e19d"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="30" uuid="26c81e35-9a07-4bb0-bd96-128a737fbaa4"/>
+				<textFieldExpression><![CDATA[$F{numsus}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="30" uuid="6eb7d43b-a350-413e-99e1-5feefe7ba4cb"/>
+				<textFieldExpression><![CDATA[$F{nomemae}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="30" uuid="5c962db7-5324-4baa-a0b9-4d983a70f832"/>
+				<textFieldExpression><![CDATA[$F{causadamorte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="100" height="30" uuid="bdf9f116-112c-4d4d-a754-c4103b925969"/>
+				<textFieldExpression><![CDATA[$F{datacadastro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="0" width="100" height="30" uuid="1af0d533-bcca-45de-89c5-12dfe2820d9c"/>
+				<textFieldExpression><![CDATA[$F{datamorte}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="63" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="0" y="30" width="100" height="30" uuid="7690a289-8a0d-40af-a93b-4b3edcd612a2"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="30" width="100" height="30" uuid="4d1f7f16-a06b-4968-8c52-ff5fcf25a456"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

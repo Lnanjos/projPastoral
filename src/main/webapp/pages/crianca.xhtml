@@ -28,6 +28,7 @@
 						<f:actionListener
 							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"></f:actionListener>
 					</p:commandButton>
+					<p:commandButton value="Imprimir" icon="ui-icon-print" actionListener="#{criancaBean.imprimir}"></p:commandButton>
 				</f:facet>
 				<p:column headerText="Nome" sortBy="#{crianca.nome}"
 					filterBy="#{crianca.nome}">
@@ -131,7 +132,6 @@
 					required="true" symbol="Kg" requiredMessage="Campo Obrigatório"
 					symbolPosition="s" value="#{criancaBean.visita.peso}"
 					disabled="#{criancaBean.editar}"></p:inputNumber>
-				<p:outputLabel for="At" value="Atendimento"></p:outputLabel>
 				<p:outputLabel value="Lider"></p:outputLabel>
 				<p:selectOneMenu value="#{criancaBean.visita.lider}"
 					converter="omnifaces.SelectItemsConverter" required="true"

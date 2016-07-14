@@ -1,15 +1,21 @@
 package br.org.pastoraldacrianca.bean;
 
-import java.io.Serializable;
-import java.util.List;
 
+import java.io.Serializable;
+import java.sql.Connection;
+import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import org.hibernate.exception.ConstraintViolationException;
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
 
 import br.org.pastoraldacrianca.DAO.CriancaDAO;
@@ -18,6 +24,7 @@ import br.org.pastoraldacrianca.DAO.VisitaDAO;
 import br.org.pastoraldacrianca.domain.Crianca;
 import br.org.pastoraldacrianca.domain.Lider;
 import br.org.pastoraldacrianca.domain.Visita;
+import br.org.pastoraldacrianca.util.HibernateUtil;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -176,6 +183,31 @@ public class CriancaBean implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 			Messages.addGlobalError("Ocorreu um erro ao remover a criança");
+		}
+	}
+	
+	public void imprimir(){
+		try {
+			DataTable tabela = (DataTable) Faces.getViewRoot().findComponent("formListagem:tabela");
+			Map<String, Object> parametros = tabela.getFilters();
+			
+			//caminho de acesso ao relatório
+			String caminho = Faces.getRealPath("/reports/criancas.jasper");
+			
+			/* Método para usar a imagem no relatório
+			String logo = Faces.getRealPath("/reports/logo2.png");
+			System.out.println(logo);
+			parametros.put("reportlogo", logo);
+			*/
+			//cria a conexão
+			Connection conexao = HibernateUtil.getConexao();
+			
+			//Criação do relatório
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros,conexao);
+			JasperPrintManager.printReport(relatorio, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Messages.addGlobalError("Ocorreu um erro ao gerar relatório");
 		}
 	}
 }
